@@ -1,0 +1,10 @@
+{
+  "name": "essence",
+  "main": "lib/essence.js",
+  "dependencies": {
+    "gulp": "^3.6.2",
+    "gulp-coffee": "^1.4.3",
+    "gulp-coffeelint": "^0.3.3",
+    "gulp-util": "^2.2.14"
+  }
+}
