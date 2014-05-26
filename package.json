@@ -2,10 +2,11 @@
   "name": "essence",
   "main": "lib/essence.js",
   "dependencies": {
-    "gulp": "^3.6.2",
-    "gulp-coffee": "^1.4.3",
-    "gulp-coffeelint": "^0.3.3",
-    "gulp-util": "^2.2.14",
-    "q": "^1.0.1"
+    "q": "^1.0.1",
+    "request": "^2.36.0",
+    "xml-digester": "0.0.5",
+    "mocha": "^1.19.0",
+    "should": "^3.3.2",
+    "lodash": "^2.4.1"
   }
 }
