@@ -1,16 +1,16 @@
 #
-Bandcamp = require('providers/Bandcamp')
-OEmbed = require('providers/OEmbed')
-OpenGraph = require('providers/OpenGraph')
-Vimeo = require('providers/Vimeo')
-Vine = require('providers/Vine')
-Youtube = require('providers/Youtube')
+Bandcamp = require('services/bandcamp')
+OEmbed = require('services/oembed')
+OpenGraph = require('services/opengraph')
+Vimeo = require('services/vimeo')
+Vine = require('services/vine')
+Youtube = require('services/youtube')
 
 
 
-# providers
-providers =
-  '23hq': () ->
+# Default services.
+services =
+  '23hq':
     'pattern': '#23hq\.com/.+/photo/.+#i'
     'factory': () -> new OEmbed('http://www.23hq.com/23/oembed?format=json&url=%s')
 
@@ -31,8 +31,6 @@ providers =
     'factory': () -> new OEmbed('http://api.bambuser.com/oembed.json?url=%s')
 
   'Bandcamp':
-    # OpenGraph subclasses should strictly match the start of the URL
-    # to prevent spoofing.
     'pattern': '#^https?://(?:[^\.]+\.)?bandcamp\.com/(album|track)/#i'
     'factory': () -> new Bandcamp()
 
@@ -273,8 +271,6 @@ providers =
     'factory': () -> new Vimeo('http://vimeo.com/api/oembed.json?url=%s')
 
   'Vine':
-    # OpenGraph subclasses should strictly match the start of the URL
-    # to prevent spoofing.
     'pattern': '#^https?://vine.co/v/[a-zA-Z0-9]+#i'
     'factory': () -> new Vine()
 
@@ -290,7 +286,7 @@ providers =
     'pattern': '#youtube\.com|youtu\.be#i'
     'factory': () -> new Youtube('http://www.youtube.com/oembed?format=json&url=%s')
 
-  # The following providers will try to embed any URL.
+  # The following services will try to embed any URL.
 
   #'OEmbed':
   # 'pattern': '#.+#'
@@ -299,3 +295,7 @@ providers =
   #'OpenGraph':
   # 'pattern': '#.+#'
   # 'factory': () -> new OpenGraph()
+
+
+
+module.exports = services
