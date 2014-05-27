@@ -7,6 +7,7 @@
     "xml-digester": "0.0.5",
     "mocha": "^1.19.0",
     "should": "^3.3.2",
-    "lodash": "^2.4.1"
+    "lodash": "^2.4.1",
+    "htmlparser2": "^3.7.2"
   }
 }
