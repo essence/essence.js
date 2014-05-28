@@ -8,6 +8,6 @@
     "mocha": "^1.19.0",
     "should": "^3.3.2",
     "lodash": "^2.4.1",
-    "htmlparser2": "^3.7.2"
+    "cheerio": "^0.16.0"
   }
 }

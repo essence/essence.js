@@ -3,8 +3,8 @@
  */
 var Q = require('q');
 var should = require('should');
-var Service = require('../lib/service');
-var OpenGraph = require('../lib/services/opengraph');
+var Service = require('../../lib/service');
+var OpenGraph = require('../../lib/services/opengraph');
 
 
 
@@ -22,7 +22,21 @@ describe('OpenGraph', function() {
 		openGraph = new OpenGraph();
 	});
 
-	it('should extend Service', function(done) {
-		opengraph.should.be.an.instanceOf(Service);
+	it('should extend Service', function() {
+		openGraph.should.be.an.instanceOf(Service);
+	});
+
+	it('should try a thing', function() {
+		var props = openGraph._extractProperties(
+			'<html>'
+				+ '<head>'
+					+ '<meta name="og:title" content="Title" />'
+				+ '</head>'
+			+ '</html>'
+		);
+
+		props.should.equal({
+			'og:title': 'Title'
+		});
 	});
 });
