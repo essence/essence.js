@@ -23,7 +23,7 @@ describe('Essence', function() {
 	var config = [{
 		name: 'Test',
 		scheme: /url/i,
-		factory: function() {
+		service: function() {
 			return service;
 		}
 	}];
