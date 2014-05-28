@@ -26,17 +26,20 @@ describe('OpenGraph', function() {
 		openGraph.should.be.an.instanceOf(Service);
 	});
 
-	it('should try a thing', function() {
-		var props = openGraph._extractProperties(
-			'<html>'
-				+ '<head>'
-					+ '<meta name="og:title" content="Title" />'
-				+ '</head>'
-			+ '</html>'
-		);
+	describe('#_extractProperties', function() {
+		it('should extract OpenGraph properties', function() {
+			var props = openGraph._extractProperties(
+				'<html>'
+					+ '<head>'
+						+ '<meta name="og:title" content="Title" />'
+						+ '<meta name="irrelevant" content="Irrelevant" />'
+					+ '</head>'
+				+ '</html>'
+			);
 
-		props.should.equal({
-			'og:title': 'Title'
+			props.should.eql({
+				'og:title': 'Title'
+			});
 		});
 	});
 });
