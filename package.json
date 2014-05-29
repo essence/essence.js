@@ -7,6 +7,10 @@
   ],
   "version": "0.1.0",
   "main": "lib/essence.js",
+  "engineStrict": true,
+  "engines": {
+    "node": ">=0.11.0"
+  },
   "dependencies": {
     "cheerio": "^0.16.0",
     "co": "^3.0.6",
