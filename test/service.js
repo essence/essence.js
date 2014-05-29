@@ -63,9 +63,7 @@ describe('Service', function() {
 
 	describe('#prepareUrl', function() {
 		it('should trim the URL', function() {
-			var prepared = service.prepareUrl(' url ');
-
-			prepared.should.equal('url');
+			service.prepareUrl(' url ').should.equal('url');
 		});
 	});
 

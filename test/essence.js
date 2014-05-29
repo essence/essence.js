@@ -47,7 +47,12 @@ describe('Essence', function() {
 			essence.fetch('url').then(function() {
 				done();
 			});
+		});
+	});
 
+	describe('#_service', function() {
+		it('should instanciate a service', function() {
+			essence._service(config[0]).should.equal(service);
 		});
 	});
 });
