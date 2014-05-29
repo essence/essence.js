@@ -11,8 +11,9 @@
     "q": "^1.0.1",
     "request": "^2.36.0",
     "xml-digester": "0.0.5",
-    "lodash": "^2.4.1",
-    "cheerio": "^0.16.0"
+    "cheerio": "^0.16.0",
+    "co": "^3.0.6",
+    "thunkify": "^2.1.1"
   },
   "devDependencies": {
     "mocha": "^1.19.0",
@@ -27,6 +28,6 @@
     "url": "git://github.com/felixgirault/essence.js.git"
   },
   "scripts": {
-    "test": "mocha -R list --recursive"
+    "test": "mocha --harmony --recursive -R list"
   }
 }

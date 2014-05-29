@@ -47,6 +47,7 @@ describe('Essence', function() {
 			essence.fetch('url').then(function() {
 				done();
 			});
+
 		});
 	});
 });

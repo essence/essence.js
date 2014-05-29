@@ -1,7 +1,7 @@
 /**
  *	@author Félix Girault <felix.girault@gmail.com>
  */
-var Q = require('q');
+var co = require('co');
 var should = require('should');
 var Service = require('../lib/service');
 
@@ -23,38 +23,47 @@ describe('Service', function() {
 
 	describe('#fetch', function() {
 		it('should fail by default', function(done) {
-			service.fetch('').fail(function() {
-				done();
-			});
+			co(function *() {
+				try {
+					yield service.fetch('');
+				} catch (e) {
+					done();
+				}
+			})();
 		});
 
 		it('should prepare the URL', function(done) {
-			service.prepareUrl = function() {
+			service.prepareUrl = function(url, options) {
 				done();
 			};
 
-			service.fetch('');
+			co(function *() {
+				try {
+					yield service.fetch('');
+				} catch (e) {}
+			})();
 		});
 
 		it('should complete the media', function(done) {
-			service._fetch = function() {
-				return Q.Promise(function(resolve) {
-					resolve({});
+			service._fetch = function(url, options) {
+				return co(function *() {
+					return {};
 				});
 			};
 
-			service.completeMedia = function() {
+			service.completeMedia = function(media, options) {
 				done();
 			}
 
-			service.fetch('');
+			co(function *() {
+				yield service.fetch('');
+			})();
 		});
 	});
 
 	describe('#prepareUrl', function() {
 		it('should trim the URL', function() {
-			var url = ' url ';
-			var prepared = service.prepareUrl(url);
+			var prepared = service.prepareUrl(' url ');
 
 			prepared.should.equal('url');
 		});

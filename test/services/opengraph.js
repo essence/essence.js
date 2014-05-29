@@ -1,7 +1,6 @@
 /**
  *	@author Félix Girault <felix.girault@gmail.com>
  */
-var Q = require('q');
 var should = require('should');
 var Service = require('../../lib/service');
 var OpenGraph = require('../../lib/services/opengraph');
@@ -40,6 +39,16 @@ describe('OpenGraph', function() {
 			props.should.eql({
 				'og:title': 'Title'
 			});
+		});
+	});
+
+	describe('#_reindexProperties', function() {
+		it('should reindex OpenGraph properties', function() {
+			var props = openGraph._reindexProperties({
+				'og:title': 'Title'
+			});
+
+			props.should.have.property('title', 'Title');
 		});
 	});
 });
