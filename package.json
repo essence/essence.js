@@ -17,7 +17,7 @@
     "lodash": "^2.4.1",
     "q": "^1.0.1",
     "request": "^2.36.0",
-    "xml-digester": "0.0.5"
+    "xml2js": "^0.4.4"
   },
   "devDependencies": {
     "mocha": "^1.19.0",
