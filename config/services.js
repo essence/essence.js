@@ -1,12 +1,12 @@
 /**
  *  @author Félix Girault <felix.girault@gmail.com>
  */
-var Bandcamp = require('./services/bandcamp');
-var OEmbed = require('./services/oembed');
-var OpenGraph = require('./services/opengraph');
-var Vimeo = require('./services/vimeo');
-var Vine = require('./services/vine');
-var Youtube = require('./services/youtube');
+var Bandcamp = require('../lib/services/bandcamp');
+var OEmbed = require('../lib/services/oembed');
+var OpenGraph = require('../lib/services/opengraph');
+var Vimeo = require('../lib/services/vimeo');
+var Vine = require('../lib/services/vine');
+var Youtube = require('../lib/services/youtube');
 
 
 

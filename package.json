@@ -6,7 +6,7 @@
     "opengraph"
   ],
   "version": "0.1.0",
-  "main": "lib/essence.js",
+  "main": "index.js",
   "engineStrict": true,
   "engines": {
     "node": ">=0.11.0"

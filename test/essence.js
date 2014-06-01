@@ -34,12 +34,6 @@ describe('Essence', function() {
 		it('should be configurable', function() {
 			essence._config.should.equal(config);
 		});
-
-		it('should use the default config if none is provided', function() {
-			var defaultConfig = require('../lib/config');
-
-			(new Essence())._config.should.equal(defaultConfig);
-		});
 	});
 
 	describe('#fetch', function() {
