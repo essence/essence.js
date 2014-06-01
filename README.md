@@ -12,12 +12,13 @@ Basic usage
 -----------
 
 ```js
-var Essence = require('../lib/essence');
+var fetch = require('essence').fetch;
 
-var essence = new Essence();
-var url = 'https://www.youtube.com/watch?v=OKY6BGcx37k';
-
-essence.fetch(url).then(function(media) {
-	console.log(media);
+fetch('https://www.youtube.com/watch?v=OKY6BGcx37k', function(error, infos) {
+	if (error) {
+		console.error(error);
+	} else {
+		console.log(infos);
+	}
 });
 ```
