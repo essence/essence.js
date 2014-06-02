@@ -1,12 +1,15 @@
 /**
  *	@author Félix Girault <felix.girault@gmail.com>
  */
+'use strict';
+
 var Essence = require('./lib/essence');
-var services = require('./config/services');
 
 
 
 /**
  *
  */
-module.exports = new Essence(services);
+module.exports.init = function(services) {
+	return new Essence(services || require('./config/services'));
+};
