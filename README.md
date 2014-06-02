@@ -30,7 +30,7 @@ essence.fetch(url, function(error, infos) {
 
 or within a co context :
 
-```
+```js
 var co = require('co');
 
 co(function *() {
@@ -40,4 +40,20 @@ co(function *() {
 		console.error(e);
 	}
 })();
+```
+
+Results
+-------
+
+```js
+{
+	"type": "video",
+	"title": "Video title",
+	"author_name": "Jean-Michel Jarre",
+	"url": "http://bar.com/page.html"
+	"thumbnail_url": "http://foo.com/thumbnail.jpg",
+	"html": "<iframe></iframe>",
+	// ...
+}
+
 ```
