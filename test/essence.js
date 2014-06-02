@@ -43,17 +43,14 @@ describe('Essence', function() {
 	describe('#fetch', function() {
 		it('should return an error when no service is found', function(done) {
 			essence.fetch('', function(error, media) {
-				if (error) {
-					done();
-				}
+				should.exist(error);
+				done();
 			});
 		});
 
 		it('should use a suitable service', function(done) {
 			essence.fetch('url', function(error, media) {
-				if (!error) {
-					done();
-				}
+				done(error);
 			});
 		});
 	});
