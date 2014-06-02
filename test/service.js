@@ -1,6 +1,8 @@
 /**
  *	@author Félix Girault <felix.girault@gmail.com>
  */
+'use strict';
+
 var co = require('co');
 var should = require('should');
 var Service = require('../lib/service');
@@ -53,7 +55,7 @@ describe('Service', function() {
 
 			service.completeMedia = function(media, options) {
 				done();
-			}
+			};
 
 			co(function *() {
 				yield service.fetch('');

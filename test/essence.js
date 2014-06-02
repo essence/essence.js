@@ -1,6 +1,8 @@
 /**
  *	@author Félix Girault <felix.girault@gmail.com>
  */
+'use strict';
+
 var co = require('co');
 var should = require('should');
 var Essence = require('../lib/essence');

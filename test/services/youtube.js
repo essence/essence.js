@@ -1,6 +1,8 @@
 /**
  *	@author Félix Girault <felix.girault@gmail.com>
  */
+'use strict';
+
 var should = require('should');
 var Service = require('../../lib/service');
 var Youtube = require('../../lib/services/youtube');
