@@ -25,10 +25,6 @@ describe('OpenGraph', function() {
 	].join('');
 
 	beforeEach(function() {
-		if (openGraph) {
-			delete openGraph;
-		}
-
 		openGraph = new OpenGraph();
 	});
 

@@ -30,7 +30,11 @@ describe('Essence', function() {
 		}
 	}];
 
-	var essence = new Essence(config);
+	var essence = null;
+
+	beforeEach(function() {
+		essence = new Essence(config);
+	});
 
 	describe('#constructor', function() {
 		it('should be configurable', function() {

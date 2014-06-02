@@ -16,10 +16,6 @@ describe('Service', function() {
 	var service = null;
 
 	beforeEach(function() {
-		if (service) {
-			delete service;
-		}
-
 		service = new Service();
 	});
 

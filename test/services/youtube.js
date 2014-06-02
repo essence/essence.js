@@ -16,10 +16,6 @@ describe('Youtube', function() {
 	var youtube = null;
 
 	beforeEach(function() {
-		if (youtube) {
-			delete youtube;
-		}
-
 		youtube = new Youtube();
 	});
 

@@ -17,10 +17,6 @@ describe('OEmbed', function() {
 	var oEmbed = null;
 
 	beforeEach(function() {
-		if (oEmbed) {
-			delete oEmbed;
-		}
-
 		oEmbed = new OEmbed();
 	});
 
