@@ -16,10 +16,8 @@ var Service = require('../lib/service');
 describe('Essence', function() {
 	var service = new Service();
 
-	service._fetch = function() {
-		return co(function *() {
-			return {};
-		});
+	service._fetch = function *() {
+		return {};
 	};
 
 	var config = [{

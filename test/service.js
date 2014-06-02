@@ -43,10 +43,8 @@ describe('Service', function() {
 		});
 
 		it('should complete the media', function(done) {
-			service._fetch = function(url, options) {
-				return co(function *() {
-					return {};
-				});
+			service._fetch = function *(url, options) {
+				return {};
 			};
 
 			service.completeMedia = function(media, options) {
