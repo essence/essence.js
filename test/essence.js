@@ -49,9 +49,7 @@ describe('Essence', function() {
 		});
 
 		it('should use a suitable service', function(done) {
-			essence.fetch('url', function(error, media) {
-				done(error);
-			});
+			essence.fetch('url', done);
 		});
 
 		it('should return a thunk', function(done) {
