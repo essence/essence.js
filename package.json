@@ -31,6 +31,6 @@
     "url": "git://github.com/felixgirault/essence.js.git"
   },
   "scripts": {
-    "test": "mocha --harmony --recursive -R list"
+    "test": "mocha --harmony --recursive -R spec"
   }
 }
