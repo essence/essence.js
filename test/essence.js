@@ -53,6 +53,10 @@ describe('Essence', function() {
 				done(error);
 			});
 		});
+
+		it('should return a thunk', function(done) {
+			essence.fetch('url')(done);
+		});
 	});
 
 	describe('#_service', function() {
