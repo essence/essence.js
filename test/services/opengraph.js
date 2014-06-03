@@ -42,8 +42,12 @@ describe('OpenGraph', function() {
 
 			co(function *() {
 				var data = yield openGraph._fetch('');
-				data.should.have.property('title', 'Title');
+				data.should.have.property('og:title', 'Title');
 			})();
+		});
+
+		it.skip('should reindex properties', function() {
+
 		});
 	});
 
@@ -54,16 +58,6 @@ describe('OpenGraph', function() {
 			props.should.eql({
 				'og:title': 'Title'
 			});
-		});
-	});
-
-	describe('#_reindexProperties', function() {
-		it('should reindex OpenGraph properties', function() {
-			var props = openGraph._reindexProperties({
-				'og:title': 'Title'
-			});
-
-			props.should.have.property('title', 'Title');
 		});
 	});
 });
