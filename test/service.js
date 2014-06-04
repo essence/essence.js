@@ -67,6 +67,11 @@ describe('Service', function() {
 
 			service._reindexInfos = function(infos, options) {
 				done();
+				return {};
+			};
+
+			service._completeInfos = function(infos, options) {
+				return {};
 			};
 
 			co(function *() {
@@ -82,12 +87,7 @@ describe('Service', function() {
 	});
 
 	describe('#_completeInfos', function() {
-		it('should return the informations as is', function() {
-			var infos = { url: 'url' };
-			var completed = service._completeInfos(infos);
 
-			completed.should.equal(infos);
-		});
 	});
 
 	describe('#_reindexInfos', function() {
