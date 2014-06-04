@@ -60,7 +60,7 @@ describe('Service', function() {
 			})();
 		});
 
-		it.skip('should reindex the informations', function() {
+		it('should reindex the informations', function(done) {
 			service._fetch = function *(url, options) {
 				return {
 					'old': 'foo'
