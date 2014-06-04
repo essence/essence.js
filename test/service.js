@@ -92,9 +92,8 @@ describe('Service', function() {
 
 	describe('#_reindexInfos', function() {
 		it('should reindex the informations', function() {
-			var infos = {'old' : 'foo'};
+			var infos = service._reindexInfos({'old' : 'foo'});
 
-			service._reindexInfos(infos);
 			infos.should.have.property('new', 'foo');
 		});
 	});
