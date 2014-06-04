@@ -33,10 +33,10 @@ describe('OEmbed', function() {
 	describe('#_buildConfig', function() {
 		it('should build a config from settings', function() {
 			co(function *() {
-				oEmbed = new OEmbed(
-					'http://service.com/json?url=:url',
-					'json'
-				);
+				oEmbed = new OEmbed({
+					endpoint: 'http://service.com/json?url=:url',
+					format: 'json'
+				});
 
 				oEmbed._buildConfig('url').should.eql({
 					endpoint: 'http://service.com/json?url=url',
