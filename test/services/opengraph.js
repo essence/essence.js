@@ -45,10 +45,6 @@ describe('OpenGraph', function() {
 				data.should.have.property('og:title', 'Title');
 			})();
 		});
-
-		it.skip('should reindex properties', function() {
-
-		});
 	});
 
 	describe('#_extractProperties', function() {

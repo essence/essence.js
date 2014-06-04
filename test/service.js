@@ -16,7 +16,11 @@ describe('Service', function() {
 	var service = null;
 
 	beforeEach(function() {
-		service = new Service();
+		service = new Service({
+			map: {
+				'old': 'new'
+			}
+		});
 	});
 
 	describe('#fetch', function() {
@@ -53,6 +57,21 @@ describe('Service', function() {
 
 			co(function *() {
 				yield service.fetch('');
+			})();
+		});
+
+		it.skip('should reindex the informations', function() {
+			service._fetch = function *(url, options) {
+				return {
+					'old': 'foo'
+				};
+			};
+
+			co(function *() {
+				var infos = yield service.fetch('');
+
+				infos.should.have.property('new', 'foo');
+				done();
 			})();
 		});
 	});
