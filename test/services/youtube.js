@@ -23,18 +23,18 @@ describe('Youtube', function() {
 		youtube.should.be.an.instanceOf(Service);
 	});
 
-	describe('#prepareUrl', function() {
+	describe('#_prepareUrl', function() {
 		it('should refactor invalid URLs', function() {
-			youtube.prepareUrl('http://www.youtube.com/watch?v=OKY6BGcx37k&noise=noise')
+			youtube._prepareUrl('http://www.youtube.com/watch?v=OKY6BGcx37k&noise=noise')
 				.should.equal('http://www.youtube.com/watch?v=OKY6BGcx37k');
 
-			youtube.prepareUrl('http://www.youtube.com/v/OKY6BGcx37k')
+			youtube._prepareUrl('http://www.youtube.com/v/OKY6BGcx37k')
 				.should.equal('http://www.youtube.com/watch?v=OKY6BGcx37k');
 
-			youtube.prepareUrl('http://www.youtube.com/embed/OKY6BGcx37k')
+			youtube._prepareUrl('http://www.youtube.com/embed/OKY6BGcx37k')
 				.should.equal('http://www.youtube.com/watch?v=OKY6BGcx37k');
 
-			youtube.prepareUrl('hhttp://youtu.be/OKY6BGcx37k')
+			youtube._prepareUrl('hhttp://youtu.be/OKY6BGcx37k')
 				.should.equal('http://www.youtube.com/watch?v=OKY6BGcx37k');
 		});
 	});

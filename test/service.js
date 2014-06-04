@@ -35,7 +35,7 @@ describe('Service', function() {
 		});
 
 		it('should prepare the URL', function(done) {
-			service.prepareUrl = function(url, options) {
+			service._prepareUrl = function(url, options) {
 				done();
 			};
 
@@ -51,7 +51,7 @@ describe('Service', function() {
 				return {};
 			};
 
-			service.completeInfos = function(infos, options) {
+			service._completeInfos = function(infos, options) {
 				done();
 			};
 
@@ -75,16 +75,16 @@ describe('Service', function() {
 		});
 	});
 
-	describe('#prepareUrl', function() {
+	describe('#_prepareUrl', function() {
 		it('should trim the URL', function() {
-			service.prepareUrl(' url ').should.equal('url');
+			service._prepareUrl(' url ').should.equal('url');
 		});
 	});
 
-	describe('#completeInfos', function() {
+	describe('#_completeInfos', function() {
 		it('should return the informations as is', function() {
 			var infos = { url: 'url' };
-			var completed = service.completeInfos(infos);
+			var completed = service._completeInfos(infos);
 
 			completed.should.equal(infos);
 		});
