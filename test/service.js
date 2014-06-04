@@ -42,12 +42,12 @@ describe('Service', function() {
 			})();
 		});
 
-		it('should complete the media', function(done) {
+		it('should complete the informations', function(done) {
 			service._fetch = function *(url, options) {
 				return {};
 			};
 
-			service.completeMedia = function(media, options) {
+			service.completeInfos = function(infos, options) {
 				done();
 			};
 
@@ -63,12 +63,12 @@ describe('Service', function() {
 		});
 	});
 
-	describe('#completeMedia', function() {
-		it('should return the media as is', function() {
-			var media = { url: 'url' };
-			var completed = service.completeMedia(media);
+	describe('#completeInfos', function() {
+		it('should return the informations as is', function() {
+			var infos = { url: 'url' };
+			var completed = service.completeInfos(infos);
 
-			completed.should.equal(media);
+			completed.should.equal(infos);
 		});
 	});
 });

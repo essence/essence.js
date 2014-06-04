@@ -42,7 +42,7 @@ describe('Essence', function() {
 
 	describe('#fetch', function() {
 		it('should return an error when no service is found', function(done) {
-			essence.fetch('', function(error, media) {
+			essence.fetch('', function(error, infos) {
 				should.exist(error);
 				done();
 			});
