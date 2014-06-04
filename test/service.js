@@ -62,16 +62,15 @@ describe('Service', function() {
 
 		it('should reindex the informations', function(done) {
 			service._fetch = function *(url, options) {
-				return {
-					'old': 'foo'
-				};
+				return {};
+			};
+
+			service._reindexInfos = function(infos, options) {
+				done();
 			};
 
 			co(function *() {
-				var infos = yield service.fetch('');
-
-				infos.should.have.property('new', 'foo');
-				done();
+				yield service.fetch('');
 			})();
 		});
 	});
@@ -88,6 +87,15 @@ describe('Service', function() {
 			var completed = service.completeInfos(infos);
 
 			completed.should.equal(infos);
+		});
+	});
+
+	describe('#_reindexInfos', function() {
+		it('should reindex the informations', function() {
+			var infos = {'old' : 'foo'};
+
+			service._reindexInfos(infos);
+			infos.should.have.property('new', 'foo');
 		});
 	});
 });
