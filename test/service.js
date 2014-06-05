@@ -87,7 +87,47 @@ describe('Service', function() {
 	});
 
 	describe('#_completeInfos', function() {
+		it('should build an HTML code for photos', function() {
+			var infos = service._completeInfos({
+				type: 'photo',
+				url: 'url',
+				title: 'title',
+				description: 'description',
+				width: 800,
+				height: 600
+			}, {});
 
+			infos.html.should.equal(
+				'<img src="url" alt="description" width="800" height="600" />'
+			);
+		});
+
+		it('should build an HTML code for videos', function() {
+			var infos = service._completeInfos({
+				type: 'video',
+				url: 'url',
+				title: 'title',
+				description: 'description',
+				width: 800,
+				height: 600
+			}, {});
+
+			infos.html.should.equal(
+				'<iframe src="url" width="800" height="600" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen />'
+			);
+		});
+
+		it('should build an HTML code for unhandled types', function() {
+			var infos = service._completeInfos({
+				url: 'url',
+				title: 'title',
+				description: 'description'
+			}, {});
+
+			infos.html.should.equal(
+				'<a href="url" alt="description">title</a>'
+			);
+		});
 	});
 
 	describe('#_reindexInfos', function() {
