@@ -68,12 +68,13 @@ describe('Service', function() {
 
 			service._reindexInfos = function(infos, options) {
 				done();
-				return {};
 			};
 
-			service._completeInfos = function(infos, options) {
-				return {};
-			};
+			co(function *() {
+				try {
+					yield service.fetch('');
+				} catch (e) {}
+			})();
 		});
 	});
 
