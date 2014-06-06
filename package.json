@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "mocha": "^1.19.0",
+    "nock": "^0.34.0",
     "should": "^3.3.2"
   },
   "license": {
