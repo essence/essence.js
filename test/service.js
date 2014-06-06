@@ -4,6 +4,7 @@
 'use strict';
 
 var co = require('co');
+var nock = require('nock');
 var should = require('should');
 var Service = require('../lib/service');
 
@@ -73,9 +74,33 @@ describe('Service', function() {
 			service._completeInfos = function(infos, options) {
 				return {};
 			};
+		});
+	});
+
+	describe('#_get', function() {
+		var url = 'http://service.com';
+		var html = '<html></html>';
+
+		it('should fetch contents of a page', function(done) {
+			nock(url).get('/').reply(200, html);
 
 			co(function *() {
-				yield service.fetch('');
+				var contents = yield service._get(url);
+
+				contents.should.equal(html);
+				done();
+			})();
+		});
+
+		it('should throw an error if no contents can be retrieved', function(done) {
+			nock(url).get('/').reply(404);
+
+			co(function *() {
+				try {
+					yield service._get(url);
+				} catch (e) {
+					done();
+				}
 			})();
 		});
 	});
