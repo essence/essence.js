@@ -1,6 +1,8 @@
 /**
  *  @author Félix Girault <felix.girault@gmail.com>
  */
+'use strict';
+
 var Bandcamp = require('../lib/services/bandcamp');
 var OEmbed = require('../lib/services/oembed');
 var OpenGraph = require('../lib/services/opengraph');
