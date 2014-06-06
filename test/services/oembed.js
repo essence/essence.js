@@ -47,7 +47,7 @@ describe('OEmbed', function() {
 	});
 
 	describe('#_extractConfig', function() {
-		it('should extract an OEmbed endpoint', function() {
+		it('should extract config from a page', function() {
 			var config = oEmbed._extractConfig([
 				'<html>',
 					'<head>',
@@ -61,6 +61,10 @@ describe('OEmbed', function() {
 				endpoint: 'http://service.com/json',
 				format: 'json'
 			});
+		});
+
+		it('should throw an exception when no config can be extracted', function() {
+			oEmbed._extractConfig('').should.throw();
 		});
 	});
 
