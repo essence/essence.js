@@ -18,8 +18,8 @@ describe('OpenGraph', function() {
 	var html = [
 		'<html>',
 			'<head>',
-				'<meta name="og:title" content="Title" />',
-				'<meta name="irrelevant" content="Irrelevant" />',
+				'<meta property="og:title" content="Title" />',
+				'<meta property="irrelevant" content="Irrelevant" />',
 			'</head>',
 		'</html>'
 	].join('');
