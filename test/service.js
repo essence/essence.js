@@ -24,11 +24,11 @@ describe('Service', function() {
 		});
 	});
 
-	describe('#fetch', function() {
+	describe('#extract', function() {
 		it('should fail by default', function(done) {
 			co(function *() {
 				try {
-					yield service.fetch('');
+					yield service.extract('');
 				} catch (e) {
 					done();
 				}
@@ -42,13 +42,13 @@ describe('Service', function() {
 
 			co(function *() {
 				try {
-					yield service.fetch('');
+					yield service.extract('');
 				} catch (e) {}
 			})();
 		});
 
 		it('should complete the informations', function(done) {
-			service._fetch = function *(url, options) {
+			service._extract = function *(url, options) {
 				return {};
 			};
 
@@ -57,12 +57,12 @@ describe('Service', function() {
 			};
 
 			co(function *() {
-				yield service.fetch('');
+				yield service.extract('');
 			})();
 		});
 
 		it('should reindex the informations', function(done) {
-			service._fetch = function *(url, options) {
+			service._extract = function *(url, options) {
 				return {};
 			};
 
@@ -72,7 +72,7 @@ describe('Service', function() {
 
 			co(function *() {
 				try {
-					yield service.fetch('');
+					yield service.extract('');
 				} catch (e) {}
 			})();
 		});

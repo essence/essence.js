@@ -16,7 +16,7 @@ var Service = require('../lib/service');
 describe('Essence', function() {
 	var service = new Service();
 
-	service._fetch = function *() {
+	service._extract = function *() {
 		return {};
 	};
 
@@ -40,20 +40,20 @@ describe('Essence', function() {
 		});
 	});
 
-	describe('#fetch', function() {
+	describe('#extract', function() {
 		it('should return an error when no service is found', function(done) {
-			essence.fetch('', function(error, infos) {
+			essence.extract('', function(error, infos) {
 				should.exist(error);
 				done();
 			});
 		});
 
 		it('should use a suitable service', function(done) {
-			essence.fetch('url', done);
+			essence.extract('url', done);
 		});
 
 		it('should return a thunk', function(done) {
-			essence.fetch('url')(done);
+			essence.extract('url')(done);
 		});
 	});
 

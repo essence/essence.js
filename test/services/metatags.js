@@ -31,8 +31,8 @@ describe('MetaTags', function() {
 		metaTags.should.be.an.instanceOf(Service);
 	});
 
-	describe('#_fetch', function() {
-		it('should fetch data from a page', function() {
+	describe('#_extract', function() {
+		it('should extract data from a page', function() {
 			metaTags._get = function() {
 				return function(cb) {
 					cb(null, html);
@@ -40,7 +40,7 @@ describe('MetaTags', function() {
 			};
 
 			co(function *() {
-				var data = yield metaTags._fetch('');
+				var data = yield metaTags._extract('');
 				data.should.have.property('foo', 'bar');
 			})();
 		});

@@ -24,8 +24,8 @@ describe('OEmbed', function() {
 		oEmbed.should.be.an.instanceOf(Service);
 	});
 
-	describe('#_fetch', function() {
-		it('should fetch data from a page', function() {
+	describe('#_extract', function() {
+		it('should extract data from a page', function() {
 
 		});
 	});

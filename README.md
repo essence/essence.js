@@ -20,7 +20,7 @@ The node way :
 var essence = require('essence').init();
 var url = 'https://www.youtube.com/watch?v=OKY6BGcx37k';
 
-essence.fetch(url, function(error, infos) {
+essence.extract(url, function(error, infos) {
 	if (error) {
 		console.error(error);
 	} else {
@@ -36,7 +36,7 @@ var co = require('co');
 
 co(function *() {
 	try {
-		console.log(yield essence.fetch(url));
+		console.log(yield essence.extract(url));
 	} catch (e) {
 		console.error(e);
 	}

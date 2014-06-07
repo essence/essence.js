@@ -9,10 +9,10 @@ var essence = require('../index').init();
 program.version(pkg.version);
 
 program
-	.command('fetch [url]')
-	.description('fetches informations about a web page')
+	.command('extract [url]')
+	.description('extracts informations about a web page')
 	.action(function(url, options) {
-		essence.fetch(url, function(error, infos) {
+		essence.extract(url, function(error, infos) {
 			if (error) {
 				console.error(error);
 			} else {
