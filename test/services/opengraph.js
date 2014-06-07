@@ -55,5 +55,9 @@ describe('OpenGraph', function() {
 				'og:title': 'Title'
 			});
 		});
+
+		it('should throw an error when no properties can be extracted', function() {
+			openGraph._extractProperties.bind(openGraph, '').should.throw();
+		});
 	});
 });
