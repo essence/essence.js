@@ -6,9 +6,9 @@
 var OEmbed = require('../lib/services/oembed');
 var Vimeo = require('../lib/services/oembed/vimeo');
 var Youtube = require('../lib/services/oembed/youtube');
-var OpenGraph = require('../lib/services/opengraph');
-var Bandcamp = require('../lib/services/opengraph/bandcamp');
-var Vine = require('../lib/services/opengraph/vine');
+var OpenGraph = require('../lib/services/metatags/opengraph');
+var Bandcamp = require('../lib/services/metatags/opengraph/bandcamp');
+var Vine = require('../lib/services/metatags/opengraph/vine');
 
 
 
