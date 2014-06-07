@@ -5,8 +5,8 @@
 
 var co = require('co');
 var should = require('should');
-var MetaTags = require('../../lib/services/metatags');
-var OpenGraph = require('../../lib/services/opengraph');
+var MetaTags = require('../../../lib/services/metatags');
+var OpenGraph = require('../../../lib/services/metatags/opengraph');
 
 
 

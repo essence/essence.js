@@ -4,8 +4,8 @@
 'use strict';
 
 var should = require('should');
-var OpenGraph = require('../../../lib/services/opengraph');
-var Bandcamp = require('../../../lib/services/opengraph/bandcamp');
+var OpenGraph = require('../../../../lib/services/metatags/opengraph');
+var Bandcamp = require('../../../../lib/services/metatags/opengraph/bandcamp');
 
 
 

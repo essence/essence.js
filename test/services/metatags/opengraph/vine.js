@@ -4,8 +4,8 @@
 'use strict';
 
 var should = require('should');
-var OpenGraph = require('../../../lib/services/opengraph');
-var Vine = require('../../../lib/services/opengraph/vine');
+var OpenGraph = require('../../../../lib/services/metatags/opengraph');
+var Vine = require('../../../../lib/services/metatags/opengraph/vine');
 
 
 
