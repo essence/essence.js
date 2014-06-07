@@ -4,8 +4,8 @@
 'use strict';
 
 var should = require('should');
-var Service = require('../../lib/service');
-var Bandcamp = require('../../lib/services/bandcamp');
+var OpenGraph = require('../../../lib/services/opengraph');
+var Bandcamp = require('../../../lib/services/opengraph/bandcamp');
 
 
 
@@ -19,8 +19,8 @@ describe('Bandcamp', function() {
 		bandcamp = new Bandcamp();
 	});
 
-	it('should extend Service', function() {
-		bandcamp.should.be.an.instanceOf(Service);
+	it('should extend OpenGraph', function() {
+		bandcamp.should.be.an.instanceOf(OpenGraph);
 	});
 
 	describe('#_completeInfos', function() {

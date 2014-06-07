@@ -3,12 +3,12 @@
  */
 'use strict';
 
-var Bandcamp = require('../lib/services/bandcamp');
 var OEmbed = require('../lib/services/oembed');
+var Vimeo = require('../lib/services/oembed/vimeo');
+var Youtube = require('../lib/services/oembed/youtube');
 var OpenGraph = require('../lib/services/opengraph');
-var Vimeo = require('../lib/services/vimeo');
-var Vine = require('../lib/services/vine');
-var Youtube = require('../lib/services/youtube');
+var Bandcamp = require('../lib/services/opengraph/bandcamp');
+var Vine = require('../lib/services/opengraph/vine');
 
 
 

@@ -4,8 +4,8 @@
 'use strict';
 
 var should = require('should');
-var Service = require('../../lib/service');
-var Youtube = require('../../lib/services/youtube');
+var OEmbed = require('../../../lib/services/oembed');
+var Youtube = require('../../../lib/services/oembed/youtube');
 
 
 
@@ -19,8 +19,8 @@ describe('Youtube', function() {
 		youtube = new Youtube();
 	});
 
-	it('should extend Service', function() {
-		youtube.should.be.an.instanceOf(Service);
+	it('should extend OEmbed', function() {
+		youtube.should.be.an.instanceOf(OEmbed);
 	});
 
 	describe('#_prepareUrl', function() {
