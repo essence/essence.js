@@ -7,8 +7,8 @@ var OEmbed = require('../lib/services/oembed');
 var Vimeo = require('../lib/services/oembed/vimeo');
 var Youtube = require('../lib/services/oembed/youtube');
 var OpenGraph = require('../lib/services/metatags/opengraph');
-var Bandcamp = require('../lib/services/metatags/opengraph/bandcamp');
 var Vine = require('../lib/services/metatags/opengraph/vine');
+var TwitterCards = require('../lib/services/metatags/twittercards');
 
 
 
@@ -49,7 +49,7 @@ var config = [{
 	name: 'Bandcamp',
 	scheme: /^https?:\/\/(?:[^\.]+\.)?bandcamp\.com\/(album|track)\//i,
 	service: function() {
-		return new Bandcamp();
+		return new TwitterCards();
 	}
 }, {
 	name: 'Blip.tv',
