@@ -145,3 +145,36 @@ Youtube
 ```
 
 Plus virtually any site that supports `OEmbed`, `OpenGraph` or `TwitterCards`.
+
+Configuration
+-------------
+
+An array can be passed on initialization to configure providers:
+
+```js
+var essence = require('essence').init([
+	{
+		// name of the provider
+		name: 'Instagram',
+		// regex to identify supported URLs
+		scheme: /instagr(\.am|am\.com)\/p\/.+/i,
+		// factory method to instanciate the provider
+		provider: function() {
+			return new OEmbed({
+				endpoint: 'http://api.instagram.com/oembed?format=json&url=:url'
+			});
+		}
+	},
+	{
+		name: '...'
+		scheme: /.../
+		factory: function() {}
+	},
+	// ...
+]);
+```
+
+If no configuration is passed, the configuration in [config/providers.js](https://github.com/felixgirault/essence.js/blob/master/config/providers.js)
+will be loaded.
+
+Take a look at this file to see how the different providers can be used ;)
