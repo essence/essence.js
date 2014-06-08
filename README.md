@@ -4,6 +4,10 @@ Essence.js
 [![Build Status](https://travis-ci.org/felixgirault/essence.js.svg?branch=master)](https://travis-ci.org/felixgirault/essence.js)
 [![Code Climate](https://codeclimate.com/github/felixgirault/essence.js.png)](https://codeclimate.com/github/felixgirault/essence.js)
 
+Essence extracts informations about web pages seamlessly through various protocols,
+such as [OEmbed](http://oembed.com), [OpenGraph](http://opengraphprotocol.org)
+or [Twitter Cards](https://dev.twitter.com/docs/cards).
+
 Installation
 ------------
 
@@ -48,12 +52,18 @@ Results
 
 ```js
 {
+	"url": "http://foo.com/page.html"
 	"type": "video",
 	"title": "Video title",
-	"author_name": "Jean-Michel Jarre",
-	"url": "http://bar.com/page.html"
-	"thumbnail_url": "http://foo.com/thumbnail.jpg",
+	"authorName": "Jean-Michel Jarre",
+	"providerName": "Foo",
+	"providerUrl": "http://foo.com"
+	"thumbnailUrl": "http://foo.com/thumbnail.jpg",
+	"thumbnailWidth": 250,
+	"thumbnailHeight": 140,
 	"html": "<iframe></iframe>",
+	"width": 640,
+	"height": 390
 	// ...
 }
 
@@ -134,4 +144,4 @@ Yfrog
 Youtube
 ```
 
-Plus virtually any site that supports `OEmbed` or `OpenGraph`.
+Plus virtually any site that supports `OEmbed`, `OpenGraph` or `TwitterCards`.
