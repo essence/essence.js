@@ -1,5 +1,5 @@
-Essence.js
-==========
+Essence
+=======
 
 [![Build Status](https://travis-ci.org/felixgirault/essence.js.svg?branch=master)](https://travis-ci.org/felixgirault/essence.js)
 [![Code Climate](https://codeclimate.com/github/felixgirault/essence.js.png)](https://codeclimate.com/github/felixgirault/essence.js)
