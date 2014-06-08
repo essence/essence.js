@@ -7,7 +7,6 @@ var OEmbed = require('../lib/services/oembed');
 var Vimeo = require('../lib/services/oembed/vimeo');
 var Youtube = require('../lib/services/oembed/youtube');
 var OpenGraph = require('../lib/services/metatags/opengraph');
-var Vine = require('../lib/services/metatags/opengraph/vine');
 var TwitterCards = require('../lib/services/metatags/twittercards');
 
 
