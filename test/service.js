@@ -18,7 +18,7 @@ describe('Service', function() {
 
 	beforeEach(function() {
 		service = new Service({
-			map: {
+			reindex: {
 				'old': 'new'
 			}
 		});
