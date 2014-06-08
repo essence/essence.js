@@ -2,8 +2,10 @@
   "name": "essence",
   "description": "Extracts informations about web pages, like youtube videos, twitter statuses or blog articles.",
   "keywords": [
+    "embed",
     "oembed",
-    "opengraph"
+    "opengraph",
+    "twitter cards"
   ],
   "version": "0.1.0",
   "main": "index.js",
