@@ -17,11 +17,7 @@ describe('Service', function() {
 	var service = null;
 
 	beforeEach(function() {
-		service = new Service({
-			reindex: {
-				'old': 'new'
-			}
-		});
+		service = new Service();
 	});
 
 	describe('#extract', function() {
@@ -66,7 +62,7 @@ describe('Service', function() {
 				return {};
 			};
 
-			service._reindexInfos = function(infos, options) {
+			service._reindexInfos = function(infos, map) {
 				done();
 			};
 
@@ -158,7 +154,10 @@ describe('Service', function() {
 
 	describe('#_reindexInfos', function() {
 		it('should reindex the informations', function() {
-			var infos = service._reindexInfos({'old' : 'foo'});
+			var infos = service._reindexInfos(
+				{'old': 'foo'},
+				{'old': 'new'}
+			);
 
 			infos.should.have.property('new', 'foo');
 		});
