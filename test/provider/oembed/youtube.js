@@ -4,8 +4,8 @@
 'use strict';
 
 var should = require('should');
-var OEmbed = require('../../../lib/services/oembed');
-var Youtube = require('../../../lib/services/oembed/youtube');
+var OEmbed = require('../../../lib/provider/oembed');
+var Youtube = require('../../../lib/provider/oembed/youtube');
 
 
 

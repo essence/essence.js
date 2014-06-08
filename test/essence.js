@@ -6,7 +6,7 @@
 var co = require('co');
 var should = require('should');
 var Essence = require('../lib/essence');
-var Service = require('../lib/service');
+var Provider = require('../lib/provider');
 
 
 
@@ -14,17 +14,17 @@ var Service = require('../lib/service');
  *
  */
 describe('Essence', function() {
-	var service = new Service();
+	var provider = new Provider();
 
-	service._extract = function *() {
+	provider._extract = function *() {
 		return {};
 	};
 
 	var config = [{
 		name: 'Test',
 		scheme: /url/i,
-		service: function() {
-			return service;
+		provider: function() {
+			return provider;
 		}
 	}];
 
@@ -41,14 +41,14 @@ describe('Essence', function() {
 	});
 
 	describe('#extract', function() {
-		it('should return an error when no service is found', function(done) {
+		it('should return an error when no provider is found', function(done) {
 			essence.extract('', function(error, infos) {
 				should.exist(error);
 				done();
 			});
 		});
 
-		it('should use a suitable service', function(done) {
+		it('should use a suitable provider', function(done) {
 			essence.extract('url', done);
 		});
 
@@ -57,9 +57,9 @@ describe('Essence', function() {
 		});
 	});
 
-	describe('#_service', function() {
-		it('should instanciate a service', function() {
-			essence._service(config[0]).should.equal(service);
+	describe('#_provider', function() {
+		it('should instanciate a provider', function() {
+			essence._provider(config[0]).should.equal(provider);
 		});
 	});
 });

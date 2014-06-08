@@ -5,8 +5,8 @@
 
 var co = require('co');
 var should = require('should');
-var Service = require('../../lib/service');
-var OEmbed = require('../../lib/services/oembed');
+var Provider = require('../../lib/provider');
+var OEmbed = require('../../lib/provider/oembed');
 
 
 
@@ -20,8 +20,8 @@ describe('OEmbed', function() {
 		oEmbed = new OEmbed();
 	});
 
-	it('should extend Service', function() {
-		oEmbed.should.be.an.instanceOf(Service);
+	it('should extend Provider', function() {
+		oEmbed.should.be.an.instanceOf(Provider);
 	});
 
 	describe('#_extract', function() {
@@ -34,12 +34,12 @@ describe('OEmbed', function() {
 		it('should build a config from settings', function() {
 			co(function *() {
 				oEmbed = new OEmbed({
-					endpoint: 'http://service.com/json?url=:url',
+					endpoint: 'http://provider.com/json?url=:url',
 					format: 'json'
 				});
 
 				oEmbed._buildConfig('url').should.eql({
-					endpoint: 'http://service.com/json?url=url',
+					endpoint: 'http://provider.com/json?url=url',
 					format: 'json'
 				});
 			})();
@@ -51,14 +51,14 @@ describe('OEmbed', function() {
 			var config = oEmbed._extractConfig([
 				'<html>',
 					'<head>',
-						'<link rel="alternate" type="application/json+oembed" href="http://service.com/json" />',
-						'<link rel="alternate" type="application/xml+oembed" href="http://service.com/xml" />',
+						'<link rel="alternate" type="application/json+oembed" href="http://provider.com/json" />',
+						'<link rel="alternate" type="application/xml+oembed" href="http://provider.com/xml" />',
 					'</head>',
 				'</html>'
 			].join(''));
 
 			config.should.eql({
-				endpoint: 'http://service.com/json',
+				endpoint: 'http://provider.com/json',
 				format: 'json'
 			});
 		});

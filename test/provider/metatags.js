@@ -5,8 +5,8 @@
 
 var co = require('co');
 var should = require('should');
-var Service = require('../../lib/service');
-var MetaTags = require('../../lib/services/metatags');
+var Provider = require('../../lib/provider');
+var MetaTags = require('../../lib/provider/metatags');
 
 
 
@@ -27,8 +27,8 @@ describe('MetaTags', function() {
 		metaTags = new MetaTags();
 	});
 
-	it('should extend Service', function() {
-		metaTags.should.be.an.instanceOf(Service);
+	it('should extend Provider', function() {
+		metaTags.should.be.an.instanceOf(Provider);
 	});
 
 	describe('#_extract', function() {

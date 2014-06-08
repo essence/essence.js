@@ -5,8 +5,8 @@
 
 var co = require('co');
 var should = require('should');
-var MetaTags = require('../../../lib/services/metatags');
-var TwitterCards = require('../../../lib/services/metatags/twittercards');
+var MetaTags = require('../../../lib/provider/metatags');
+var TwitterCards = require('../../../lib/provider/metatags/twittercards');
 
 
 

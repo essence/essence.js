@@ -6,25 +6,25 @@
 var co = require('co');
 var nock = require('nock');
 var should = require('should');
-var Service = require('../lib/service');
+var Provider = require('../lib/provider');
 
 
 
 /**
  *
  */
-describe('Service', function() {
-	var service = null;
+describe('Provider', function() {
+	var provider = null;
 
 	beforeEach(function() {
-		service = new Service();
+		provider = new Provider();
 	});
 
 	describe('#extract', function() {
 		it('should fail by default', function(done) {
 			co(function *() {
 				try {
-					yield service.extract('');
+					yield provider.extract('');
 				} catch (e) {
 					done();
 				}
@@ -32,57 +32,57 @@ describe('Service', function() {
 		});
 
 		it('should prepare the URL', function(done) {
-			service._prepareUrl = function(url, options) {
+			provider._prepareUrl = function(url, options) {
 				done();
 			};
 
 			co(function *() {
 				try {
-					yield service.extract('');
+					yield provider.extract('');
 				} catch (e) {}
 			})();
 		});
 
 		it('should complete the informations', function(done) {
-			service._extract = function *(url, options) {
+			provider._extract = function *(url, options) {
 				return {};
 			};
 
-			service._completeInfos = function(infos, options) {
+			provider._completeInfos = function(infos, options) {
 				done();
 			};
 
 			co(function *() {
-				yield service.extract('');
+				yield provider.extract('');
 			})();
 		});
 
 		it('should reindex the informations', function(done) {
-			service._extract = function *(url, options) {
+			provider._extract = function *(url, options) {
 				return {};
 			};
 
-			service._reindexInfos = function(infos, map) {
+			provider._reindexInfos = function(infos, map) {
 				done();
 			};
 
 			co(function *() {
 				try {
-					yield service.extract('');
+					yield provider.extract('');
 				} catch (e) {}
 			})();
 		});
 	});
 
 	describe('#_get', function() {
-		var url = 'http://service.com';
+		var url = 'http://provider.com';
 		var html = '<html></html>';
 
 		it('should fetch contents of a page', function(done) {
 			nock(url).get('/').reply(200, html);
 
 			co(function *() {
-				var contents = yield service._get(url);
+				var contents = yield provider._get(url);
 
 				contents.should.equal(html);
 				done();
@@ -94,7 +94,7 @@ describe('Service', function() {
 
 			co(function *() {
 				try {
-					yield service._get(url);
+					yield provider._get(url);
 				} catch (e) {
 					done();
 				}
@@ -104,13 +104,13 @@ describe('Service', function() {
 
 	describe('#_prepareUrl', function() {
 		it('should trim the URL', function() {
-			service._prepareUrl(' url ').should.equal('url');
+			provider._prepareUrl(' url ').should.equal('url');
 		});
 	});
 
 	describe('#_completeInfos', function() {
 		it('should build an HTML code for photos', function() {
-			var infos = service._completeInfos({
+			var infos = provider._completeInfos({
 				type: 'photo',
 				url: 'url',
 				title: 'title',
@@ -125,7 +125,7 @@ describe('Service', function() {
 		});
 
 		it('should build an HTML code for videos', function() {
-			var infos = service._completeInfos({
+			var infos = provider._completeInfos({
 				type: 'video',
 				url: 'url',
 				title: 'title',
@@ -140,7 +140,7 @@ describe('Service', function() {
 		});
 
 		it('should build an HTML code for unhandled types', function() {
-			var infos = service._completeInfos({
+			var infos = provider._completeInfos({
 				url: 'url',
 				title: 'title',
 				description: 'description'
@@ -154,7 +154,7 @@ describe('Service', function() {
 
 	describe('#_reindexInfos', function() {
 		it('should reindex the informations', function() {
-			var infos = service._reindexInfos(
+			var infos = provider._reindexInfos(
 				{'old': 'foo'},
 				{'old': 'new'}
 			);

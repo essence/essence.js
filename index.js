@@ -10,6 +10,6 @@ var Essence = require('./lib/essence');
 /**
  *
  */
-module.exports.init = function(services) {
-	return new Essence(services || require('./config/services'));
+module.exports.init = function(providers) {
+	return new Essence(providers || require('./config/providers'));
 };
