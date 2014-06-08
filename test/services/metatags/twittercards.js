@@ -28,7 +28,7 @@ describe('TwitterCards', function() {
 		it('should reindex informations for a player card', function() {
 			var infos = twitterCards._reindexInfos({
 				'twitter:card': 'player',
-				'twitter:player': '<iframe></iframe>',
+				'twitter:player': 'http://video.com',
 				'twitter:player:width': 800,
 				'twitter:player:height': 600,
 				'twitter:image': 'http://thumbnail.com',
@@ -37,7 +37,7 @@ describe('TwitterCards', function() {
 			}, twitterCards._options.reindex);
 
 			infos.should.have.property({
-				'html': '<iframe></iframe>',
+				'url': 'http://video.com',
 				'width': 800,
 				'height': 600,
 				'thumbnailUrl': 'http://thumbnail.com',
