@@ -409,7 +409,7 @@ var config = [{
 	name: 'Vine',
 	scheme: /^https?:\/\/vine.co\/v\/[a-zA-Z0-9]+/i,
 	service: function() {
-		return new Vine();
+		return new TwitterCards();
 	}
 }, {
 	name: 'WordPress',
