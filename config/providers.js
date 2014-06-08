@@ -402,7 +402,7 @@ var config = [{
 	name: 'Vimeo',
 	scheme: /vimeo\.com/i,
 	provider: function() {
-		return new Vimeo('http://vimeo.com/api/oembed.json?url=:url');
+		return new Vimeo({endpoint: 'http://vimeo.com/api/oembed.json?url=:url'});
 	}
 }, {
 	name: 'Vine',
