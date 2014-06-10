@@ -57,6 +57,13 @@ describe('Essence', function() {
 		});
 	});
 
+	describe('#_providersFor', function() {
+		it('should yield providers', function() {
+			var providers = essence._providersFor('url');
+			providers.next().value.should.equal(provider);
+		});
+	});
+
 	describe('#_provider', function() {
 		it('should instanciate a provider', function() {
 			essence._provider(config[0]).should.equal(provider);
