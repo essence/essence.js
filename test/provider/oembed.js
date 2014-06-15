@@ -69,10 +69,21 @@ describe('OEmbed', function() {
 	});
 
 	describe('#_completeEndpoint', function() {
-		it('should complete the endpoint', function() {
-			var endpoint = oEmbed._completeEndpoint('url');
+		it('should append query string', function() {
+			var endpoint = oEmbed._completeEndpoint('url', {
+				width: 800,
+				height: 600
+			});
 
-			endpoint.should.be.equal('url');
+			endpoint.should.be.equal('url?width=800&height=600');
+		});
+
+		it('should complete existing query string', function() {
+			var endpoint = oEmbed._completeEndpoint('url?param=value', {
+				width: 800
+			});
+
+			endpoint.should.be.equal('url?param=value&width=800');
 		});
 	});
 
