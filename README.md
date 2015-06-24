@@ -47,6 +47,9 @@ co(function *() {
 })();
 ```
 
+Essence is based on [co](https://github.com/tj/co), so you would
+have to run it with the `--harmony` flag when using node.
+
 Results
 -------
 
