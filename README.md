@@ -1,8 +1,8 @@
 Essence
 =======
 
-[![Build Status](https://travis-ci.org/felixgirault/essence.js.svg?branch=master)](https://travis-ci.org/felixgirault/essence.js)
-[![Code Climate](https://codeclimate.com/github/felixgirault/essence.js.png)](https://codeclimate.com/github/felixgirault/essence.js)
+[![Build Status](https://travis-ci.org/essence/essence.js.svg?branch=master)](https://travis-ci.org/essence/essence.js)
+[![Code Climate](https://codeclimate.com/github/essence/essence.js/badges/gpa.svg)](https://codeclimate.com/github/essence/essence.js)
 
 Essence extracts informations about web pages seamlessly through various protocols,
 such as [OEmbed](http://oembed.com), [OpenGraph](http://opengraphprotocol.org)
@@ -55,21 +55,20 @@ Results
 
 ```js
 {
-	"url": "http://foo.com/page.html"
-	"type": "video",
-	"title": "Video title",
-	"authorName": "Jean-Michel Jarre",
-	"providerName": "Foo",
-	"providerUrl": "http://foo.com"
-	"thumbnailUrl": "http://foo.com/thumbnail.jpg",
-	"thumbnailWidth": 250,
-	"thumbnailHeight": 140,
-	"html": "<iframe></iframe>",
-	"width": 640,
-	"height": 390
+	url: 'http://foo.com/page.html'
+	type: 'video',
+	title: 'Video title',
+	authorName: 'Jean-Michel Jarre',
+	providerName: 'Foo',
+	providerUrl: 'http://foo.com',
+	thumbnailUrl: 'http://foo.com/thumbnail.jpg',
+	thumbnailWidth: 250,
+	thumbnailHeight: 140,
+	html: '<iframe></iframe>',
+	width: 640,
+	height: 390
 	// ...
 }
-
 ```
 
 Supported providers
@@ -147,7 +146,7 @@ Yfrog
 Youtube
 ```
 
-Plus virtually any site that supports `OEmbed`, `OpenGraph` or `TwitterCards`.
+Plus virtually any site that supports oEmbed, OpenGraph or Twitter cards.
 
 Configuration
 -------------
@@ -177,7 +176,7 @@ var essence = require('essence').init([
 ]);
 ```
 
-If no configuration is passed, the configuration in [config/providers.js](https://github.com/felixgirault/essence.js/blob/master/config/providers.js)
+If no configuration is passed, the configuration in [config/providers.js](https://github.com/essence/essence.js/blob/master/config/providers.js)
 will be loaded.
 
 Take a look at this file to see how the different providers can be used ;)
