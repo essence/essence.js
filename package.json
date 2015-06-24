@@ -28,11 +28,11 @@
   },
   "license": {
     "type": "BSD-3-Clause",
-    "url": "http://github.com/felixgirault/essence.js/blob/master/LICENSE.txt"
+    "url": "http://github.com/essence/essence.js/blob/master/LICENSE.txt"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/felixgirault/essence.js.git"
+    "url": "git://github.com/essence/essence.js.git"
   },
   "scripts": {
     "test": "mocha --harmony --recursive -R spec"
