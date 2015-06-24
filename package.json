@@ -27,7 +27,7 @@
     "should": "^7.0.1"
   },
   "license": {
-    "type": "BSD-3-Clause",
+    "type": "MIT",
     "url": "http://github.com/essence/essence.js/blob/master/LICENSE.txt"
   },
   "repository": {
