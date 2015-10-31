@@ -1,7 +1,6 @@
 /**
  *
  */
-import cheerio from 'cheerio';
 import oEmbedExtractor from './oEmbed';
 
 
@@ -9,21 +8,34 @@ import oEmbedExtractor from './oEmbed';
 /**
  *
  */
-export default function oEmbedKnownExtractor(providers) {
-	return async function extractOEmbedKnown(html, options) {
-		const config = extractConfig(html);
-		const extract = oEmbedExtractor(
-			config.endpoint,
-			config.format
-		);
+function findService(services, url) {
+	for (const name in services) {
+		const service = services[name];
 
-		return extract(url, options);
+		if (service.filter.test(url)) {
+			return service;
+		}
 	}
+
+	return undefined;
 }
 
 /**
  *
  */
-function extractConfig(html) {
+export default function oEmbedKnownExtractor(services) {
+	return async function extractOEmbedKnown(req, res) {
+		const service = findService(services, req.url);
 
+		if (!service) {
+			return res;
+		}
+
+		const extract = oEmbedExtractor(
+			service.endpoint,
+			service.format
+		);
+
+		return extract(req, res);
+	}
 }

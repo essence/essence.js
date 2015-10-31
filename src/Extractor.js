@@ -9,42 +9,42 @@ import Response from './Response';
 /**
  *
  */
-const trueCondition = () => true;
-
-
-
-/**
- *
- */
-class Extractor {
+export default class Extractor {
 
 	constructor(url) {
 		this.middlewares = [];
 	}
 
-	pipe(middleware, condition = trueCondition) {
+	when(condition, ...middlewares) {
 		this.middlewares.push({
-			middleware,
-			condition
+			condition,
+			middlewares
 		});
 
 		return this;
 	}
 
+	always(...middlewares) {
+		return this.when(
+			() => true,
+			middlewares
+		);
+	}
+
 	async extract(url) {
 		const req = new Request(url);
-		const res = new Response(url);
+		let res = new Response();
 
-		for ({condition, middleware} of this.middlewares) {
-			if (condition(req, res)) {
-				try {
-					await middleware(req, res);
-				} catch(e) {
-					console.error(e);
-				}
+		for (const {condition, middlewares} of this.middlewares) {
+			if (!condition(req, res)) {
+				continue;
+			}
+
+			for (const middleware of middlewares) {
+				res = await middleware(req, res);
 			}
 		}
 
-		return Promise.resolve(res);
+		return res;
 	}
 }

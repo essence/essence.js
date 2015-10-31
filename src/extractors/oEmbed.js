@@ -1,7 +1,7 @@
 /**
  *
  */
-import {FORMAT_JSON} from './oEmbedFormat';
+import {FORMAT_JSON} from './oEmbedFormats';
 
 
 
@@ -9,7 +9,7 @@ import {FORMAT_JSON} from './oEmbedFormat';
  *
  */
 export default function oEmbedExtractor(endpoint, format = FORMAT_JSON) {
-	return async function extractOEmbed(url, options) {
-
+	return async function extractOEmbed(req, res) {
+		return res.withProp('title', 'Video title');
 	}
 }

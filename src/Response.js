@@ -1,37 +1,64 @@
 /**
  *
  */
+import {Map, List} from 'immutable';
 
 
 
 /**
  *
  */
-class Response {
+export default class Response {
 
-	constructor() {
-		this.props = {};
+	constructor(props = Map(), errors = List()) {
+		this.props = props;
+		this.errors = errors;
 	}
 
 	has(key) {
-		return key in this.props;
+		return this.props.has(key);
 	}
 
 	count(key) {
-		return this.has(key)
-			? this.props[key].length
-			: 0;
+		return this.all(key).length
+	}
+
+	get(key) {
+		return this.first(key);
 	}
 
 	first(key, missing) {
-		return this.count(key)
-			? this.props[key][0]
+		const all = this.all(key);
+
+		return all.length
+			? all[0]
 			: missing;
 	}
 
 	all(key) {
-		return this.has(key)
-			? this.props[key]
-			: [];
+		return this.props.get(key, []);
+	}
+
+	withProp(key, value) {
+		const values = this.all(key);
+
+		return new Response(
+			this.props.set(key, values.concat(value)),
+			this.errors
+		);
+	}
+
+	withProps(props) {
+		return new Response(
+			this.props.mergeDeep(props),
+			this.errors
+		);
+	}
+
+	withError(error) {
+		return new Response(
+			this.props,
+			this.errors.push(error)
+		);
 	}
 }

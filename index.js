@@ -1,7 +1,7 @@
 /**
  *
  */
-import Extractor from './src/Extractor';
+import container from './src/container';
 
 
 
@@ -9,18 +9,15 @@ import Extractor from './src/Extractor';
  *
  */
 (async function() {
-	const extractor = new Extractor();
-	const isYoutube = (req, res) => !req.first('url').match(/youtube/i);
-	const isEmpty = (req, res) => !res.has('title');
+	const extractor = container.get('extractor');
+	const url = 'https://www.youtube.com/watch?v=B_tjKYvEziI';
+	let res;
 
-	extractor
-		.pipe(youtubePreparator(), isYoutube)
-		.pipe(oEmbedKnownExtractor(providers), isEmpty)
-		.pipe(oEmbedAutoExtractor(), isEmpty)
-		.pipe(openGraphExtractor())
-		.pipe(twitterCardsExtractor())
-		.pipe(urlPresenter())
-		.pipe(youtubePresenter(), isYoutube);
+	try {
+		res = await extractor.extract(url);
+	} catch (e) {
+		console.error(e);
+	}
 
-	console.log(await extractor.extract(url));
+	console.log(res.first('title'));
 }());

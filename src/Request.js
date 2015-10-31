@@ -1,24 +1,24 @@
 /**
  *
  */
-import request from 'request';
+import axios from 'axios';
 
 
 
 /**
  *
  */
-class Request {
+export default class Request {
 
 	constructor(url) {
 		this.url = url;
 	}
 
 	headers() {
-		return request.head(this.url);
+		return axios.head(this.url);
 	}
 
 	body() {
-		return request.get(this.url);
+		return axios.get(this.url);
 	}
 }

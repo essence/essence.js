@@ -14,6 +14,7 @@ module.exports = {
 	],
 	output: {
 		path: './dist',
+		publicPath: '/dist/',
 		filename: 'essence.js',
 	},
 	module: {
