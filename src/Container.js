@@ -1,6 +1,7 @@
 /**
  *
  */
+import memoize from 'lodash/function/memoize';
 
 
 
@@ -14,15 +15,21 @@ export default class Container {
 	}
 
 	get(key) {
-		if (!(key in this.factories)) {
-			throw new Error();
+		if (key in this.factories) {
+			return this.factories[key]();
 		}
 
-		return this.factories[key]();
+		throw new Error(
+			`No factory found for key '${key}'`
+		);
 	}
 
 	set(key, factory) {
 		this.factories[key] = factory;
+	}
+
+	setUnique(key, factory) {
+		this.set(key, memoize(factory));
 	}
 
 	delete(key) {

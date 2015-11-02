@@ -10,25 +10,31 @@ import oEmbedExtractor from './oEmbed';
  *
  */
 export default function oEmbedAutoExtractor() {
-	return async function extractOEmbedAuto(html, options) {
-		const config = extractConfig(html);
+	return async function extractOEmbedAuto(req, res) {
+		const html = await req.body();
+		const service = extractService(html);
+
+		if (!service) {
+			return res;
+		}
+
 		const extract = oEmbedExtractor(
-			config.endpoint,
-			config.format
+			service.endpoint,
+			service.format
 		);
 
-		return extract(url, options);
+		return extract(req, res);
 	}
 }
 
 /**
  *
  */
-function extractConfig(html) {
+function extractService(html) {
 	const $ = cheerio.load(html);
 	const links = $('link', 'head');
-	const regex = /application\/(json|xml)\+oembed/i;
-	const config = {};
+	const pattern = /application\/(json|xml)\+oembed/i;
+	let service;
 
 	links.each((i, link) => {
 		const type = $(link).attr('type');
@@ -38,18 +44,17 @@ function extractConfig(html) {
 			return;
 		}
 
-		const matches = regex.exec(type);
+		const matches = pattern.exec(type);
 
 		if (matches && matches[1]) {
-			config.endpoint = href;
-			config.format = matches[1];
+			service = {
+				endpoint: href,
+				format: matches[1]
+			}
+
 			return false;
 		}
 	});
 
-	if (!config.length) {
-		throw new Error('Unable to extract any OEmbed endpoint');
-	}
-
-	return config;
+	return service;
 }

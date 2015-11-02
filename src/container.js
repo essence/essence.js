@@ -5,6 +5,7 @@ import Container from './Container';
 import Extractor from './Extractor';
 import {FORMAT_JSON} from './extractors/oEmbedFormats';
 import oEmbedKnownExtractor from './extractors/oEmbedKnown';
+import oEmbedAutoExtractor from './extractors/oEmbedAuto';
 
 
 
@@ -13,39 +14,41 @@ import oEmbedKnownExtractor from './extractors/oEmbedKnown';
  */
 const container = new Container();
 
-container.set('oEmbedServices', () => ({
+container.setUnique('oEmbedServices', () => ({
 	'youtube': {
 		filter: /youtube\.com|youtu\.be/i,
-		endpoint: 'http://www.youtube.com/oembed?format=json&url=%s',
+		endpoint: 'http://www.youtube.com/oembed?format=json&url=:url',
 		format: FORMAT_JSON
 	}
 }));
 
-container.set('oEmbedKnownExtractor', () => {
+container.setUnique('oEmbedKnownExtractor', () => {
 	return oEmbedKnownExtractor(
 		container.get('oEmbedServices')
 	);
 });
 
-container.set('isEmptyResponse', () => {
+container.setUnique('oEmbedAutoExtractor', oEmbedAutoExtractor);
+
+container.setUnique('isEmptyResponse', () => {
 	return (req, res) => !res.has('title');
 });
 
-container.set('isYoutubeRequest', () => {
+container.setUnique('isYoutubeRequest', () => {
 	return (req, res) => {
 		return !req.url.test(/youtube\.com|youtu\.be/i);
 	};
 });
 
-container.set('extractor', () => {
+container.setUnique('extractor', () => {
 	const extractor = new Extractor();
-	const hasNoTitle = container.get('isEmptyResponse');
+	const isEmptyResponse = container.get('isEmptyResponse');
 	const isYoutube = container.get('isYoutubeRequest');
 
 	return extractor
 		//.when(isYoutube, youtubePreparator())
-		.when(hasNoTitle, container.get('oEmbedKnownExtractor'))
-		//.when(hasNoTitle, oEmbedAutoExtractor())
+		.when(isEmptyResponse, container.get('oEmbedKnownExtractor'))
+		.when(isEmptyResponse, container.get('oEmbedAutoExtractor'))
 		//.always(
 		//	openGraphExtractor(),
 		//	twitterCardsExtractor(),
