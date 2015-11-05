@@ -36,12 +36,25 @@ export default class Extractor {
 		let res = new Response();
 
 		for (const {condition, middlewares} of this.middlewares) {
-			if (!condition(req, res)) {
-				continue;
+			if (condition(req, res)) {
+				res = await this.applyMiddlewares(
+					req,
+					res,
+					middlewares
+				);
 			}
+		}
 
-			for (const middleware of middlewares) {
+		return res;
+	}
+
+	async applyMiddlewares(req, res, middlewares) {
+		for (const middleware of middlewares) {
+			try {
 				res = await middleware(req, res);
+			} catch (e) {
+				res = res.withError(e);
+				console.log(e);
 			}
 		}
 

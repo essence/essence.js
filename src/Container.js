@@ -15,13 +15,13 @@ export default class Container {
 	}
 
 	get(key) {
-		if (key in this.factories) {
-			return this.factories[key]();
+		if (!(key in this.factories)) {
+			throw new Error(
+				`No factory found for key '${key}'`
+			);
 		}
 
-		throw new Error(
-			`No factory found for key '${key}'`
-		);
+		return this.factories[key]();
 	}
 
 	set(key, factory) {

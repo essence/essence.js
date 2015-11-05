@@ -2,6 +2,7 @@
  *
  */
 import {Map, List} from 'immutable';
+import reduce from 'lodash/collection/reduce';
 
 
 
@@ -49,10 +50,9 @@ export default class Response {
 	}
 
 	withProps(props) {
-		return new Response(
-			this.props.mergeDeep(props),
-			this.errors
-		);
+		return reduce(props, (self, value, key) => {
+			return self.withProp(key, value);
+		}, this);
 	}
 
 	withError(error) {

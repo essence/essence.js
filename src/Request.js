@@ -15,14 +15,16 @@ export default class Request {
 		this.url = url;
 
 		this.getHeaders = memoize(axios.head);
-		this.getBody = memoize(axios.body);
+		this.getBody = memoize(axios.get);
 	}
 
 	async headers(url) {
-		return this.getHeaders(url || this.url);
+		return this.getHeaders(url || this.url)
+			.then(response => response.headers);
 	}
 
-	async body() {
-		return this.getBody(url || this.url);
+	async body(url) {
+		return this.getBody(url || this.url)
+			.then(response => response.data);
 	}
 }

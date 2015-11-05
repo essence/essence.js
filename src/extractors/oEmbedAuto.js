@@ -9,27 +9,6 @@ import oEmbedExtractor from './oEmbed';
 /**
  *
  */
-export default function oEmbedAutoExtractor() {
-	return async function extractOEmbedAuto(req, res) {
-		const html = await req.body();
-		const service = extractService(html);
-
-		if (!service) {
-			return res;
-		}
-
-		const extract = oEmbedExtractor(
-			service.endpoint,
-			service.format
-		);
-
-		return extract(req, res);
-	}
-}
-
-/**
- *
- */
 function extractService(html) {
 	const $ = cheerio.load(html);
 	const links = $('link', 'head');
@@ -57,4 +36,25 @@ function extractService(html) {
 	});
 
 	return service;
+}
+
+/**
+ *
+ */
+export default function oEmbedAutoExtractor() {
+	return async function extractOEmbedAuto(req, res) {
+		const html = await req.body();
+		const service = extractService(html);
+
+		if (!service) {
+			return res;
+		}
+
+		const extract = oEmbedExtractor(
+			service.endpoint,
+			service.format
+		);
+
+		return extract(req, res);
+	}
 }
