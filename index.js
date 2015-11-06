@@ -10,7 +10,7 @@ import container from './src/container';
  */
 (async function() {
 	const extractor = container.get('extractor');
-	const url = 'https://www.youtube.com/watch?v=B_tjKYvEziI';
+	const url = 'https://www.youtube.com/watch?v=SrpeLpQWzTk';
 	let res;
 
 	try {
@@ -19,5 +19,11 @@ import container from './src/container';
 		console.error(e);
 	}
 
-	console.log(res.first('title'));
+	console.log(res.groups(
+		'og:video:url',
+		'og:video:secure_url',
+		'og:video:type',
+		'og:video:width',
+		'og:video:height'
+	));
 }());
