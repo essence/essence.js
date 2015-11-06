@@ -40,6 +40,22 @@ export default class Response {
 		return this.props.get(key, []);
 	}
 
+	groups(...keys) {
+		const groups = [];
+
+		keys.forEach((key) => {
+			this.all(key).forEach((value, i) => {
+				if (!groups[i]) {
+					groups[i] = {};
+				}
+
+				groups[i][key] = value;
+			});
+		});
+
+		return groups;
+	}
+
 	withProp(key, value) {
 		const values = this.all(key);
 
@@ -50,8 +66,8 @@ export default class Response {
 	}
 
 	withProps(props) {
-		return reduce(props, (self, value, key) => {
-			return self.withProp(key, value);
+		return reduce(props, (res, value, key) => {
+			return res.withProp(key, value);
 		}, this);
 	}
 
