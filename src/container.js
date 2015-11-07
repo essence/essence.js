@@ -3,10 +3,12 @@
  */
 import Container from './Container';
 import Extractor from './Extractor';
+import pipeline from './pipeline';
 import {FORMAT_JSON} from './extractors/oEmbedFormats';
 import metaTagsExtractor from './extractors/metaTags';
 import oEmbedKnownExtractor from './extractors/oEmbedKnown';
 import oEmbedAutoExtractor from './extractors/oEmbedAuto';
+import mapperPresenter from './presenters/mapper';
 
 
 
@@ -35,8 +37,34 @@ container.setUnique('openGraphExtractor', () => {
 	return metaTagsExtractor(/^og:/i);
 });
 
+container.setUnique('openGraphMapper', () => {
+	return mapperPresenter({
+		'og:url': 'url',
+		'og:type': 'type',
+		'og:title': 'title',
+		'og:description': 'description',
+		'og:site_name': 'providerName',
+		'og:image': 'thumbnailUrl',
+		'og:image:url': 'thumbnailUrl',
+		'og:image:width': 'width',
+		'og:image:height': 'height',
+		'og:video:width': 'width',
+		'og:video:height': 'height'
+	});
+});
+
 container.setUnique('twitterTagsExtractor', () => {
 	return metaTagsExtractor(/^twitter:/i);
+});
+
+container.setUnique('twitterTagsMapper', () => {
+	return mapperPresenter({
+		'twitter:card': 'type',
+		'twitter:title': 'title',
+		'twitter:description': 'description',
+		'twitter:site': 'providerName',
+		'twitter:creator': 'authorName'
+	});
 });
 
 container.setUnique('isEmptyResponse', () => {
@@ -58,8 +86,14 @@ container.setUnique('extractor', () => {
 		//.when(isYoutube, youtubePreparator())
 		//.when(isEmptyResponse, container.get('oEmbedKnownExtractor'))
 		//.when(isEmptyResponse, container.get('oEmbedAutoExtractor'))
-		.when(isEmptyResponse, container.get('openGraphExtractor'))
-		.when(isEmptyResponse, container.get('twitterTagsExtractor'))
+		.when(isEmptyResponse, pipeline(
+			container.get('openGraphExtractor'),
+			container.get('openGraphMapper')
+		))
+		.when(isEmptyResponse, pipeline(
+			container.get('twitterTagsExtractor'),
+			container.get('twitterTagsMapper')
+		))
 		//.always(
 		//	openGraphExtractor(),
 		//	twitterCardsExtractor(),
