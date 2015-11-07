@@ -6,7 +6,7 @@ import cheerio from 'cheerio';
 
 
 /**
- *
+ *	@TODO: stream the page to stop early.
  */
 function extractProperties(pattern, html) {
 	const $ = cheerio.load(html);

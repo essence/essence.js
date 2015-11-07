@@ -7,7 +7,7 @@ import oEmbedExtractor from './oEmbed';
 
 
 /**
- *
+ *	@TODO: stream the page to stop early.
  */
 function extractService(html) {
 	const $ = cheerio.load(html);
