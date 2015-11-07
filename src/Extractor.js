@@ -15,19 +15,19 @@ export default class Extractor {
 		this.middlewares = [];
 	}
 
-	when(condition, ...middlewares) {
+	when(condition, middleware) {
 		this.middlewares.push({
 			condition,
-			middlewares
+			middleware
 		});
 
 		return this;
 	}
 
-	always(...middlewares) {
+	always(middleware) {
 		return this.when(
 			() => true,
-			middlewares
+			middleware
 		);
 	}
 
@@ -35,26 +35,9 @@ export default class Extractor {
 		const req = new Request(url);
 		let res = new Response();
 
-		for (const {condition, middlewares} of this.middlewares) {
+		for (const {condition, middleware} of this.middlewares) {
 			if (condition(req, res)) {
-				res = await this.applyMiddlewares(
-					req,
-					res,
-					middlewares
-				);
-			}
-		}
-
-		return res;
-	}
-
-	async applyMiddlewares(req, res, middlewares) {
-		for (const middleware of middlewares) {
-			try {
 				res = await middleware(req, res);
-			} catch (e) {
-				res = res.withError(e);
-				console.log(e);
 			}
 		}
 
