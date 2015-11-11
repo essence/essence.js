@@ -2,6 +2,7 @@
  *
  */
 var webpack = require('webpack');
+var BannerPlugin = webpack.BannerPlugin;
 
 
 
@@ -32,7 +33,18 @@ module.exports = {
 		]
 	},
 
-	// for request
+	plugins: [
+		// sourcemap support
+		new BannerPlugin(
+			"require('source-map-support').install();",
+			{
+				raw: true,
+				entryOnly: false
+			}
+		)
+	],
+
+	// for the request module
 	externals: {
 		fs: '{}',
 		tls: '{}',
