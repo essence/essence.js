@@ -5,6 +5,7 @@ import axios from 'axios';
 import memoize from 'lodash/function/memoize';
 import Container from './Container';
 import Extractor from './Extractor';
+import condition from './condition';
 import pipeline from './pipeline';
 import {FORMAT_JSON} from './extractors/oEmbedFormats';
 import metaTagsExtractor from './extractors/metaTags';
@@ -112,23 +113,43 @@ container.setUnique('extractor', () => {
 	const isYoutube = container.get('isYoutubeRequest');
 
 	return extractor
-		//.when(isYoutube, youtubePreparator())
-		//.when(isEmptyResponse, container.get('oEmbedKnownExtractor'))
-		//.when(isEmptyResponse, container.get('oEmbedAutoExtractor'))
-		.when(isEmptyResponse, pipeline(
-			container.get('openGraphExtractor'),
-			container.get('openGraphMapper')
-		))
-		.when(isEmptyResponse, pipeline(
-			container.get('twitterTagsExtractor'),
-			container.get('twitterTagsMapper')
-		))
-		//.always(
-		//	openGraphExtractor(),
-		//	twitterCardsExtractor(),
-		//	urlPresenter()
+		//.pipePreparator(
+		//	condition(
+		//		isYoutube,
+		//		youtubePreparator()
+		//	)
 		//)
-		//.when(isYoutube, youtubePresenter());
+		.pipeMiddleware(
+			condition(
+				isEmptyResponse,
+				container.get('oEmbedKnownExtractor')
+			)
+		)
+		//.pipeMiddleware(
+		//	condition(
+		//		isEmptyResponse,
+		//		container.get('oEmbedAutoExtractor')
+		//	)
+		//)
+		.pipeMiddleware(
+			condition(
+				isEmptyResponse,
+				pipeline(
+					container.get('openGraphExtractor'),
+					container.get('openGraphMapper')
+				)
+			)
+		)
+		.pipeMiddleware(
+			condition(
+				isEmptyResponse,
+				pipeline(
+					container.get('twitterTagsExtractor'),
+					container.get('twitterTagsMapper')
+				)
+			)
+		)
+		//.pipeMiddleware(isYoutube, youtubePresenter())
 });
 
 

@@ -12,33 +12,30 @@ import Response from './Response';
 export default class Extractor {
 
 	constructor(url) {
+		this.preparators = [];
 		this.middlewares = [];
 	}
 
-	when(condition, middleware) {
-		this.middlewares.push({
-			condition,
-			middleware
-		});
-
+	pipePreparator(preparator) {
+		this.preparators.push(preparator);
 		return this;
 	}
 
-	always(middleware) {
-		return this.when(
-			() => true,
-			middleware
-		);
+	pipeMiddleware(middleware) {
+		this.middlewares.push(middleware);
+		return this;
 	}
 
 	async extract(url) {
-		const req = new Request(url);
+		const req = this.preparators.reduce(
+			(r, preparator) => preparator(r),
+			new Request(url)
+		);
+
 		let res = new Response();
 
-		for (const {condition, middleware} of this.middlewares) {
-			if (condition(req, res)) {
-				res = await middleware(req, res);
-			}
+		for (const middleware of this.middlewares) {
+			res = await middleware(req, res);
 		}
 
 		return res;
