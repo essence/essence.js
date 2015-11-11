@@ -9,10 +9,10 @@ import {FORMAT_JSON} from './oEmbedFormats';
 /**
  *
  */
-export default function oEmbedExtractor(endpoint, format = FORMAT_JSON) {
+export default function oEmbedExtractor(getBody, endpoint, format = FORMAT_JSON) {
 	return async function extractOEmbed(req, res) {
 		const url = endpoint.replace(/:url/i, req.url);
-		const body = await req.body(url);
+		const body = await getBody(req.url);
 
 		switch (format) {
 			case FORMAT_JSON:

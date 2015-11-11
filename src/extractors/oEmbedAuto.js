@@ -41,9 +41,9 @@ function extractService(html) {
 /**
  *
  */
-export default function oEmbedAutoExtractor() {
+export default function oEmbedAutoExtractor(getBody) {
 	return async function extractOEmbedAuto(req, res) {
-		const html = await req.body();
+		const html = await getBody(req.url);
 		const service = extractService(html);
 
 		if (!service) {

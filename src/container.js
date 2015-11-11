@@ -1,6 +1,8 @@
 /**
  *
  */
+import axios from 'axios';
+import memoize from 'lodash/function/memoize';
 import Container from './Container';
 import Extractor from './Extractor';
 import pipeline from './pipeline';
@@ -17,6 +19,22 @@ import mapperPresenter from './presenters/mapper';
  */
 const container = new Container();
 
+container.setUnique('getHeaders', () => {
+	const head = memoize(axios.head);
+
+	return async function(url) {
+		return head(url).then(response => response.headers);
+	};
+});
+
+container.setUnique('getBody', () => {
+	const get = memoize(axios.get);
+
+	return async function(url) {
+		return get(url).then(response => response.data);
+	};
+});
+
 container.setUnique('oEmbedServices', () => ({
 	'youtube': {
 		filter: /youtube\.com|youtu\.be/i,
@@ -27,14 +45,22 @@ container.setUnique('oEmbedServices', () => ({
 
 container.setUnique('oEmbedKnownExtractor', () => {
 	return oEmbedKnownExtractor(
+		container.get('getBody'),
 		container.get('oEmbedServices')
 	);
 });
 
-container.setUnique('oEmbedAutoExtractor', oEmbedAutoExtractor);
+container.setUnique('oEmbedAutoExtractor', () => {
+	return oEmbedAutoExtractor(
+		container.get('getBody')
+	);
+});
 
 container.setUnique('openGraphExtractor', () => {
-	return metaTagsExtractor(/^og:/i);
+	return metaTagsExtractor(
+		container.get('getBody'),
+		/^og:/i
+	);
 });
 
 container.setUnique('openGraphMapper', () => {
@@ -54,7 +80,10 @@ container.setUnique('openGraphMapper', () => {
 });
 
 container.setUnique('twitterTagsExtractor', () => {
-	return metaTagsExtractor(/^twitter:/i);
+	return metaTagsExtractor(
+		container.get('getBody'),
+		/^twitter:/i
+	);
 });
 
 container.setUnique('twitterTagsMapper', () => {
