@@ -6,10 +6,10 @@ import memoize from 'lodash/function/memoize';
 import Container from './Container';
 import Extractor from './Extractor';
 import pipeline from './pipeline';
-import {FORMAT_JSON} from './extractors/oEmbedFormats';
 import preparatorCondition from './preparators/condition';
 import extractorCondition from './extractors/condition';
 import youtubePreparator from './preparators/youtube';
+import {FORMAT_JSON, FORMAT_XML} from './extractors/oEmbedFormats';
 import metaTagsExtractor from './extractors/metaTags';
 import oEmbedKnownExtractor from './extractors/oEmbedKnown';
 import oEmbedAutoExtractor from './extractors/oEmbedAuto';
@@ -43,8 +43,8 @@ container.setUnique('youtubePreparator', youtubePreparator);
 container.setUnique('oEmbedServices', () => ({
 	'youtube': {
 		filter: /youtube\.com|youtu\.be/i,
-		endpoint: 'http://www.youtube.com/oembed?format=json&url=:url',
-		format: FORMAT_JSON
+		endpoint: 'http://www.youtube.com/oembed?format=xml&url=:url',
+		format: FORMAT_XML
 	}
 }));
 
