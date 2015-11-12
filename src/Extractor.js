@@ -27,10 +27,11 @@ export default class Extractor {
 	}
 
 	async extract(url) {
-		const req = this.preparators.reduce(
-			(r, preparator) => preparator(r),
-			new Request(url)
-		);
+		let req = new Request(url);
+
+		for (const preparator of this.preparators) {
+			req = await preparator(req);
+		}
 
 		let res = new Response();
 
