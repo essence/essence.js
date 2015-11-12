@@ -110,7 +110,11 @@ container.setUnique('isYoutubeRequest', () => {
 	return (req) => pattern.test(req.url);
 });
 
+container.setUnique('fillUrl', () => {
 	return (req, res) => {
+		return res.has('url')
+			? res
+			: res.withProp('url', req.url);
 	};
 });
 
@@ -118,6 +122,7 @@ container.setUnique('extractor', () => {
 	const extractor = new Extractor();
 	const isEmptyResponse = container.get('isEmptyResponse');
 	const isYoutubeRequest = container.get('isYoutubeRequest');
+	const fillUrl = container.get('fillUrl');
 
 	return extractor
 		.pipePreparator(
@@ -157,6 +162,7 @@ container.setUnique('extractor', () => {
 			)
 		)
 		//.pipeMiddleware(isYoutubeRequest, youtubePresenter())
+		.pipeMiddleware(container.get('fillUrl'));
 });
 
 
