@@ -51,6 +51,7 @@ export default function oEmbedAutoExtractor(getBody) {
 		}
 
 		const extract = oEmbedExtractor(
+			getBody,
 			service.endpoint,
 			service.format
 		);
