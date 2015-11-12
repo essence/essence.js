@@ -9,6 +9,7 @@ import pipeline from './pipeline';
 import {FORMAT_JSON} from './extractors/oEmbedFormats';
 import preparatorCondition from './preparators/condition';
 import extractorCondition from './extractors/condition';
+import youtubePreparator from './preparators/youtube';
 import metaTagsExtractor from './extractors/metaTags';
 import oEmbedKnownExtractor from './extractors/oEmbedKnown';
 import oEmbedAutoExtractor from './extractors/oEmbedAuto';
@@ -36,6 +37,8 @@ container.setUnique('getBody', () => {
 		return get(url).then(response => response.data);
 	};
 });
+
+container.setUnique('youtubePreparator', youtubePreparator);
 
 container.setUnique('oEmbedServices', () => ({
 	'youtube': {
@@ -117,12 +120,12 @@ container.setUnique('extractor', () => {
 	const isYoutubeRequest = container.get('isYoutubeRequest');
 
 	return extractor
-		//.pipePreparator(
-		//	condition(
-		//		isYoutube,
-		//		youtubePreparator()
-		//	)
-		//)
+		.pipePreparator(
+			preparatorCondition(
+				isYoutubeRequest,
+				container.get('youtubePreparator')
+			)
+		)
 		.pipeMiddleware(
 			extractorCondition(
 				isEmptyResponse,
