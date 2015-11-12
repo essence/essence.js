@@ -5,9 +5,10 @@ import axios from 'axios';
 import memoize from 'lodash/function/memoize';
 import Container from './Container';
 import Extractor from './Extractor';
-import condition from './condition';
 import pipeline from './pipeline';
 import {FORMAT_JSON} from './extractors/oEmbedFormats';
+import preparatorCondition from './preparators/condition';
+import extractorCondition from './extractors/condition';
 import metaTagsExtractor from './extractors/metaTags';
 import oEmbedKnownExtractor from './extractors/oEmbedKnown';
 import oEmbedAutoExtractor from './extractors/oEmbedAuto';
@@ -120,19 +121,19 @@ container.setUnique('extractor', () => {
 		//	)
 		//)
 		.pipeMiddleware(
-			condition(
+			extractorCondition(
 				isEmptyResponse,
 				container.get('oEmbedKnownExtractor')
 			)
 		)
 		//.pipeMiddleware(
-		//	condition(
+		//	extractorCondition(
 		//		isEmptyResponse,
 		//		container.get('oEmbedAutoExtractor')
 		//	)
 		//)
 		.pipeMiddleware(
-			condition(
+			extractorCondition(
 				isEmptyResponse,
 				pipeline(
 					container.get('openGraphExtractor'),
@@ -141,7 +142,7 @@ container.setUnique('extractor', () => {
 			)
 		)
 		.pipeMiddleware(
-			condition(
+			extractorCondition(
 				isEmptyResponse,
 				pipeline(
 					container.get('twitterTagsExtractor'),
