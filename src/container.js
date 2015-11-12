@@ -103,15 +103,18 @@ container.setUnique('isEmptyResponse', () => {
 });
 
 container.setUnique('isYoutubeRequest', () => {
+	const pattern = /youtube\.com|youtu\.be/i;
+	return (req) => pattern.test(req.url);
+});
+
 	return (req, res) => {
-		return !req.url.test(/youtube\.com|youtu\.be/i);
 	};
 });
 
 container.setUnique('extractor', () => {
 	const extractor = new Extractor();
 	const isEmptyResponse = container.get('isEmptyResponse');
-	const isYoutube = container.get('isYoutubeRequest');
+	const isYoutubeRequest = container.get('isYoutubeRequest');
 
 	return extractor
 		//.pipePreparator(
@@ -150,7 +153,7 @@ container.setUnique('extractor', () => {
 				)
 			)
 		)
-		//.pipeMiddleware(isYoutube, youtubePresenter())
+		//.pipeMiddleware(isYoutubeRequest, youtubePresenter())
 });
 
 
