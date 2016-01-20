@@ -15,6 +15,7 @@ import {FORMAT_JSON, FORMAT_XML} from './extractors/oEmbedFormats';
 import oEmbedKnownExtractor from './extractors/oEmbedKnown';
 import oEmbedAutoExtractor from './extractors/oEmbedAuto';
 import mapperPresenter from './presenters/mapper';
+import fillUrl from './presenters/fillUrl';
 
 
 
@@ -102,24 +103,7 @@ container.setUnique('twitterTagsMapper', () => {
 	});
 });
 
-container.setUnique('fillUrl', () => {
-	const fillUrl = (req, res) => {
-		return res.has('url')
-			? res
-			: res.withProp('url', req.url);
-	};
-
-	return ({req, res}) => {
-		return {
-			req,
-			res: fillUrl(req, res)
-		}
-	};
-});
-
 container.setUnique('middlewares', () => {
-	const fillUrl = container.get('fillUrl');
-
 	return [
 		condition(
 			isYoutubeRequest,
@@ -151,7 +135,7 @@ container.setUnique('middlewares', () => {
 		//		isYoutubeRequest,
 		//		youtubePresenter()
 		//	),
-		container.get('fillUrl')
+		fillUrl
 	];
 });
 
