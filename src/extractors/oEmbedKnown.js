@@ -24,11 +24,14 @@ function findService(services, url) {
  *
  */
 export default function oEmbedKnownExtractor(getBody, services) {
-	return async function extractOEmbedKnown(req, res) {
-		const service = findService(services, req.url);
+	return async function extractOEmbedKnown(payload) {
+		const service = findService(
+			services,
+			payload.req.url
+		);
 
 		if (!service) {
-			return res;
+			return payload;
 		}
 
 		const extract = oEmbedExtractor(
@@ -37,6 +40,6 @@ export default function oEmbedKnownExtractor(getBody, services) {
 			service.format
 		);
 
-		return extract(req, res);
-	}
+		return extract(payload);
+	};
 }

@@ -4,16 +4,18 @@
 import axios from 'axios';
 import memoize from 'lodash/function/memoize';
 import Container from './Container';
-import Extractor from './Extractor';
+import extractor from './extractor';
 import pipeline from './pipeline';
-import preparatorCondition from './preparators/condition';
-import extractorCondition from './extractors/condition';
+import condition from './condition';
+import isYoutubeRequest from './conditions/isYoutubeRequest';
+import isEmptyResponse from './conditions/isEmptyResponse';
 import youtubePreparator from './preparators/youtube';
-import {FORMAT_JSON, FORMAT_XML} from './extractors/oEmbedFormats';
 import metaTagsExtractor from './extractors/metaTags';
+import {FORMAT_JSON, FORMAT_XML} from './extractors/oEmbedFormats';
 import oEmbedKnownExtractor from './extractors/oEmbedKnown';
 import oEmbedAutoExtractor from './extractors/oEmbedAuto';
 import mapperPresenter from './presenters/mapper';
+import fillUrl from './presenters/fillUrl';
 
 
 
@@ -101,68 +103,46 @@ container.setUnique('twitterTagsMapper', () => {
 	});
 });
 
-container.setUnique('isEmptyResponse', () => {
-	return (req, res) => !res.has('title');
-});
-
-container.setUnique('isYoutubeRequest', () => {
-	const pattern = /youtube\.com|youtu\.be/i;
-	return (req) => pattern.test(req.url);
-});
-
-container.setUnique('fillUrl', () => {
-	return (req, res) => {
-		return res.has('url')
-			? res
-			: res.withProp('url', req.url);
-	};
+container.setUnique('middlewares', () => {
+	return [
+		condition(
+			isYoutubeRequest,
+			container.get('youtubePreparator')
+		),
+		condition(
+			isEmptyResponse,
+			container.get('oEmbedKnownExtractor')
+		),
+		//	condition(
+		//		isEmptyResponse,
+		//		container.get('oEmbedAutoExtractor')
+		//	),
+		condition(
+			isEmptyResponse,
+			pipeline(
+				container.get('openGraphExtractor'),
+				container.get('openGraphMapper')
+			)
+		),
+		condition(
+			isEmptyResponse,
+			pipeline(
+				container.get('twitterTagsExtractor'),
+				container.get('twitterTagsMapper')
+			)
+		),
+		//	condition(
+		//		isYoutubeRequest,
+		//		youtubePresenter()
+		//	),
+		fillUrl
+	];
 });
 
 container.setUnique('extractor', () => {
-	const extractor = new Extractor();
-	const isEmptyResponse = container.get('isEmptyResponse');
-	const isYoutubeRequest = container.get('isYoutubeRequest');
-	const fillUrl = container.get('fillUrl');
-
-	return extractor
-		.pipePreparator(
-			preparatorCondition(
-				isYoutubeRequest,
-				container.get('youtubePreparator')
-			)
-		)
-		.pipeMiddleware(
-			extractorCondition(
-				isEmptyResponse,
-				container.get('oEmbedKnownExtractor')
-			)
-		)
-		//.pipeMiddleware(
-		//	extractorCondition(
-		//		isEmptyResponse,
-		//		container.get('oEmbedAutoExtractor')
-		//	)
-		//)
-		.pipeMiddleware(
-			extractorCondition(
-				isEmptyResponse,
-				pipeline(
-					container.get('openGraphExtractor'),
-					container.get('openGraphMapper')
-				)
-			)
-		)
-		.pipeMiddleware(
-			extractorCondition(
-				isEmptyResponse,
-				pipeline(
-					container.get('twitterTagsExtractor'),
-					container.get('twitterTagsMapper')
-				)
-			)
-		)
-		//.pipeMiddleware(isYoutubeRequest, youtubePresenter())
-		.pipeMiddleware(container.get('fillUrl'));
+	return extractor(
+		container.get('middlewares')
+	);
 });
 
 
