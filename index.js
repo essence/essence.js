@@ -8,14 +8,11 @@ import container from './src/container';
 /**
  *
  */
-(async function() {
-	try {
-		const extractor = container.get('extractor');
-		const url = 'https://youtu.be/SrpeLpQWzTk';
-		const res = await extractor.extract(url);
+(function() {
+	const extractor = container.get('extractor');
+	const url = 'https://youtu.be/SrpeLpQWzTk';
 
-		console.log(res.get('title'));
-	} catch (e) {
-		console.error(e.stack);
-	}
-}());
+	extractor.extract(url)
+		.then(console.log)
+		.catch(console.error);
+})();

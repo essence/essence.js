@@ -2,6 +2,7 @@
  *
  */
 import {Map, List} from 'immutable';
+import set from 'lodash/object/set';
 import reduce from 'lodash/collection/reduce';
 
 
@@ -21,7 +22,7 @@ export default class Response {
 	}
 
 	count(key) {
-		return this.all(key).length
+		return this.all(key).length;
 	}
 
 	get(key) {
@@ -45,11 +46,7 @@ export default class Response {
 
 		keys.forEach((key) => {
 			this.all(key).forEach((value, i) => {
-				if (!groups[i]) {
-					groups[i] = {};
-				}
-
-				groups[i][key] = value;
+				set(groups, [i, key], value);
 			});
 		});
 
