@@ -36,10 +36,13 @@ function extractProperties(pattern, html) {
  *
  */
 export default function metaTagsExtractor(getBody, pattern) {
-	return async function extractMetaTags(req, res) {
+	return async function extractMetaTags({req, res}) {
 		const html = await getBody(req.url);
 		const props = extractProperties(pattern, html);
 
-		return res.withProps(props);
-	}
+		return {
+			req,
+			res: res.withProps(props)
+		};
+	};
 }

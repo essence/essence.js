@@ -29,25 +29,33 @@ async function parseXml(xml) {
 /**
  *
  */
+async function parse(body, format) {
+	switch (format) {
+		case FORMAT_JSON:
+			return isString(body)
+				? JSON.parse(body)
+				: body
+
+		case FORMAT_XML:
+			return await parseXml(body);
+
+		default:
+			return {};
+	}
+}
+
+/**
+ *
+ */
 export default function oEmbedExtractor(getBody, endpoint, format = FORMAT_JSON) {
-	return async function extractOEmbed(req, res) {
+	return async function extractOEmbed({req, res}) {
 		const url = endpoint.replace(/:url/i, req.url);
 		const body = await getBody(url);
+		const props = await parse(body, format);
 
-		switch (format) {
-			case FORMAT_JSON:
-				return res.withProps(
-					isString(body)
-						? JSON.parse(body)
-						: body
-				);
-
-			case FORMAT_XML:
-				return res.withProps(
-					await parseXml(body)
-				);
-		}
-
-		return res;
-	}
+		return {
+			req,
+			res: res.withProps(props)
+		};
+	};
 }

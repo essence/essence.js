@@ -42,12 +42,12 @@ function extractService(html) {
  *
  */
 export default function oEmbedAutoExtractor(getBody) {
-	return async function extractOEmbedAuto(req, res) {
-		const html = await getBody(req.url);
+	return async function extractOEmbedAuto(payload) {
+		const html = await getBody(payload.req.url);
 		const service = extractService(html);
 
 		if (!service) {
-			return res;
+			return payload;
 		}
 
 		const extract = oEmbedExtractor(
@@ -56,6 +56,6 @@ export default function oEmbedAutoExtractor(getBody) {
 			service.format
 		);
 
-		return extract(req, res);
-	}
+		return extract(payload);
+	};
 }
