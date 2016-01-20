@@ -14,7 +14,7 @@ export default function youtubePreparator() {
 
 		if (matches && matches[1]) {
 			return req.withUrl(
-				'http://www.youtube.com/watch?v=' + matches[1]
+				'https://www.youtube.com/watch?v=' + matches[1]
 			);
 		}
 
