@@ -5,8 +5,10 @@ import axios from 'axios';
 import memoize from 'lodash/function/memoize';
 import Container from './Container';
 import extractor from './extractor';
-import condition from './condition';
 import pipeline from './pipeline';
+import condition from './condition';
+import isYoutubeRequest from './conditions/isYoutubeRequest';
+import isEmptyResponse from './conditions/isEmptyResponse';
 import youtubePreparator from './preparators/youtube';
 import metaTagsExtractor from './extractors/metaTags';
 import {FORMAT_JSON, FORMAT_XML} from './extractors/oEmbedFormats';
@@ -100,15 +102,6 @@ container.setUnique('twitterTagsMapper', () => {
 	});
 });
 
-container.setUnique('isEmptyResponse', () => {
-	return ({res}) => !res.has('title');
-});
-
-container.setUnique('isYoutubeRequest', () => {
-	const pattern = /youtube\.com|youtu\.be/i;
-	return ({req}) => pattern.test(req.url);
-});
-
 container.setUnique('fillUrl', () => {
 	const fillUrl = (req, res) => {
 		return res.has('url')
@@ -125,8 +118,6 @@ container.setUnique('fillUrl', () => {
 });
 
 container.setUnique('middlewares', () => {
-	const isEmptyResponse = container.get('isEmptyResponse');
-	const isYoutubeRequest = container.get('isYoutubeRequest');
 	const fillUrl = container.get('fillUrl');
 
 	return [
