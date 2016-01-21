@@ -22,28 +22,26 @@ module.exports = {
 	module: {
 		loaders: [
 			{
-				loader: "json-loader",
+				loader: 'json-loader',
 				test: /\.json$/
 			},
 			{
-				loader: 'babel-loader?stage=0&optional=runtime',
+				loader: 'babel-loader',
 				test: /\.js$/,
 				exclude: /node_modules/
 			}
 		]
 	},
-
 	plugins: [
 		// sourcemap support
 		new BannerPlugin(
-			"require('source-map-support').install();",
+			'require(\'source-map-support\').install();',
 			{
 				raw: true,
 				entryOnly: false
 			}
 		)
 	],
-
 	// for the request module
 	externals: {
 		fs: '{}',
