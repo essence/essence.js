@@ -1,7 +1,7 @@
 /**
  *
  */
-import {Map, List} from 'immutable';
+import {Map} from 'immutable';
 import set from 'lodash/object/set';
 import reduce from 'lodash/collection/reduce';
 
@@ -12,9 +12,8 @@ import reduce from 'lodash/collection/reduce';
  */
 export default class Response {
 
-	constructor(props = Map(), errors = List()) {
+	constructor(props = Map()) {
 		this.props = props;
-		this.errors = errors;
 	}
 
 	has(key) {
@@ -57,8 +56,10 @@ export default class Response {
 		const values = this.all(key);
 
 		return new Response(
-			this.props.set(key, values.concat(value)),
-			this.errors
+			this.props.set(
+				key,
+				values.concat(value)
+			)
 		);
 	}
 
@@ -66,12 +67,5 @@ export default class Response {
 		return reduce(props, (res, value, key) => {
 			return res.withProp(key, value);
 		}, this);
-	}
-
-	withError(error) {
-		return new Response(
-			this.props,
-			this.errors.push(error)
-		);
 	}
 }

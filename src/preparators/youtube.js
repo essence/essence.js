@@ -8,7 +8,7 @@
  *	@TODO inject pattern and URL.
  */
 export default function youtubePreparator() {
-	return async function prepareYoutube({req, res}) {
+	return async function prepareYoutube({req, res, err}) {
 		const pattern = /(?:v=|v\/|embed\/|youtu\.be\/)([a-z0-9_-]+)/i;
 		const matches = pattern.exec(req.url);
 
@@ -17,10 +17,11 @@ export default function youtubePreparator() {
 
 			return {
 				req: req.withUrl(url),
-				res
+				res,
+				err
 			};
 		}
 
-		return {req, res};
+		return {req, res, err};
 	};
 }
