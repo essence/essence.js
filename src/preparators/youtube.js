@@ -1,10 +1,4 @@
 /**
- *
- */
-
-
-
-/**
  *	@TODO inject pattern and URL.
  */
 export default function youtubePreparator() {

@@ -7,7 +7,7 @@ chai.use(chaiAsPromised);
 
 
 describe('condition', function() {
-	it('should pass a payload to the condition', function (done) {
+	it('should pass a payload to the condition', function(done) {
 		const payload = 'payload';
 		const condition = createCondition(
 			(p) => {
@@ -20,7 +20,7 @@ describe('condition', function() {
 		condition(payload);
 	});
 
-	it('should execute the middleware when the condition is true', function () {
+	it('should execute the middleware when the condition is true', function() {
 		const original = 'original';
 		const updated = 'updated';
 
@@ -33,7 +33,7 @@ describe('condition', function() {
 			.to.eventually.equal(updated);
 	});
 
-	it('should return the payload untouched when the condition is false', function () {
+	it('should return the payload untouched when the condition is false', function() {
 		const original = 'original';
 		const updated = 'updated';
 

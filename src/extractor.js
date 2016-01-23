@@ -1,6 +1,3 @@
-/**
- *
- */
 import Request from './Request';
 import Response from './Response';
 import Errors from './Errors';

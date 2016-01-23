@@ -1,12 +1,6 @@
 /**
  *
  */
-
-
-
-/**
- *
- */
 export default function pipeline(...middlewares) {
 	return async function(payload) {
 		try {

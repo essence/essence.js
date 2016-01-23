@@ -1,6 +1,3 @@
-/**
- *
- */
 import oEmbedExtractor from './oEmbed';
 
 

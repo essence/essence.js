@@ -1,6 +1,3 @@
-/**
- *
- */
 import cheerio from 'cheerio';
 import oEmbedExtractor from './oEmbed';
 

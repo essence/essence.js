@@ -1,6 +1,3 @@
-/**
- *
- */
 import xml2js from 'xml2js';
 import isString from 'lodash/lang/isString';
 import {FORMAT_JSON, FORMAT_XML} from './oEmbedFormats';

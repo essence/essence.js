@@ -1,6 +1,3 @@
-/**
- *
- */
 import reduce from 'lodash/collection/reduce';
 
 
