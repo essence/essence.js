@@ -1,19 +1,17 @@
 /**
  *
  */
-
-
-
-/**
- *
- */
-export default class Request {
-
-	constructor(url) {
-		this.url = url;
+export default function Request(url) {
+	function getUrl() {
+		return url;
 	}
 
-	withUrl(url) {
-		return new Request(url);
+	function withUrl(url) {
+		return Request(url);
 	}
+
+	return {
+		withUrl,
+		url: getUrl
+	};
 }

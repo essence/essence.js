@@ -1,6 +1,4 @@
-/**
- *
- */
+import {Map} from 'immutable';
 import memoize from 'lodash/function/memoize';
 
 
@@ -8,31 +6,32 @@ import memoize from 'lodash/function/memoize';
 /**
  *
  */
-export default class Container {
+export default function Container(factories = Map()) {
+	function get(key) {
+		const factory = factories.get(key);
 
-	constructor(factories) {
-		this.factories = {};
-	}
-
-	get(key) {
-		if (!(key in this.factories)) {
+		if (!factory) {
 			throw new Error(
 				`No factory found for key '${key}'`
 			);
 		}
 
-		return this.factories[key]();
+		return factory();
 	}
 
-	set(key, factory) {
-		this.factories[key] = factory;
+	function withFactory(key, factory) {
+		return Container(
+			factories.set(key, factory)
+		);
 	}
 
-	setUnique(key, factory) {
-		this.set(key, memoize(factory));
+	function withUniqueFactory(key, factory) {
+		return withFactory(key, memoize(factory));
 	}
 
-	delete(key) {
-		delete this.factories[key];
+	return {
+		get,
+		with: withFactory,
+		withUnique: withUniqueFactory
 	}
 }

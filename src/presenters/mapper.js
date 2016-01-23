@@ -18,10 +18,11 @@ function mapProp(res, to, from) {
  *
  */
 export default function mapperPresenter(mapping) {
-	return async function mapProps({req, res}) {
+	return async function mapProps({req, res, err}) {
 		return {
 			req,
-			res: reduce(mapping, mapProp, res)
+			res: reduce(mapping, mapProp, res),
+			err
 		};
 	};
 }

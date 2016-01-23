@@ -15,8 +15,8 @@ export default function pipeline(...middlewares) {
 			}
 		} catch (e) {
 			return {
-				req: payload.req,
-				res: payload.res.withError(e)
+				...payload,
+				err: payload.err.withError(e)
 			};
 		}
 

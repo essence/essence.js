@@ -1,7 +1,4 @@
-/**
- *
- */
-import {Map, List} from 'immutable';
+import {Map} from 'immutable';
 import set from 'lodash/object/set';
 import reduce from 'lodash/collection/reduce';
 
@@ -10,42 +7,32 @@ import reduce from 'lodash/collection/reduce';
 /**
  *
  */
-export default class Response {
-
-	constructor(props = Map(), errors = List()) {
-		this.props = props;
-		this.errors = errors;
+export default function Response(props = Map()) {
+	function hasProp(key) {
+		return props.has(key);
 	}
 
-	has(key) {
-		return this.props.has(key);
-	}
-
-	count(key) {
-		return this.all(key).length;
-	}
-
-	get(key) {
-		return this.first(key);
-	}
-
-	first(key, missing) {
-		const all = this.all(key);
+	function firstProp(key, missing) {
+		const all = allProps(key);
 
 		return all.length
 			? all[0]
 			: missing;
 	}
 
-	all(key) {
-		return this.props.get(key, []);
+	function allProps(key) {
+		return props.get(key, []);
 	}
 
-	groups(...keys) {
+	function propCount(key) {
+		return allProps(key).length;
+	}
+
+	function propGroups(...keys) {
 		const groups = [];
 
 		keys.forEach((key) => {
-			this.all(key).forEach((value, i) => {
+			allProps(key).forEach((value, i) => {
 				set(groups, [i, key], value);
 			});
 		});
@@ -53,25 +40,29 @@ export default class Response {
 		return groups;
 	}
 
-	withProp(key, value) {
-		const values = this.all(key);
+	function withProp(key, value) {
+		const all = allProps(key);
+		const values = all.concat(value);
 
-		return new Response(
-			this.props.set(key, values.concat(value)),
-			this.errors
+		return Response(
+			props.set(key, values)
 		);
 	}
 
-	withProps(props) {
-		return reduce(props, (res, value, key) => {
+	function withProps(newProps) {
+		return reduce(newProps, (res, value, key) => {
 			return res.withProp(key, value);
-		}, this);
+		}, Response(props));
 	}
 
-	withError(error) {
-		return new Response(
-			this.props,
-			this.errors.push(error)
-		);
-	}
+	return {
+		withProp,
+		withProps,
+		has: hasProp,
+		first: firstProp,
+		get: firstProp,
+		all: allProps,
+		count: propCount,
+		groups: propGroups
+	};
 }
