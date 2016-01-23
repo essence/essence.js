@@ -13,8 +13,8 @@ import Errors from './Errors';
 export default function extractor(middlewares) {
 	return async function extract(url) {
 		let payload = {
-			res: new Response(),
 			req: Request(url),
+			res: Response(),
 			err: Errors()
 		};
 
