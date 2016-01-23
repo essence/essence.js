@@ -43,7 +43,7 @@ function extractService(html) {
  */
 export default function oEmbedAutoExtractor(getBody) {
 	return async function extractOEmbedAuto(payload) {
-		const html = await getBody(payload.req.url);
+		const html = await getBody(payload.req.url());
 		const service = extractService(html);
 
 		if (!service) {

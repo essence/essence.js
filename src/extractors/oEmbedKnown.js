@@ -27,7 +27,7 @@ export default function oEmbedKnownExtractor(getBody, services) {
 	return async function extractOEmbedKnown(payload) {
 		const service = findService(
 			services,
-			payload.req.url
+			payload.req.url()
 		);
 
 		if (!service) {
