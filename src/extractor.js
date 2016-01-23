@@ -15,7 +15,7 @@ export default function extractor(middlewares) {
 		let payload = {
 			req: new Request(url),
 			res: new Response(),
-			err: new Errors()
+			err: Errors()
 		};
 
 		for (const middleware of middlewares) {

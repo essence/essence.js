@@ -1,13 +1,20 @@
-import {List} from 'immutable';
-
-
-
 /**
  *
  */
-export default class Errors extends List {
+export default function Errors(errors = []) {
+	function allErrors() {
+		return errors;
+	}
 
-	withError(error) {
-		return this.push(error);
+	function withError(error) {
+		return Errors(
+			errors.concat(error)
+		);
+	}
+
+	return {
+		withError,
+		withErrors: withError,
+		all: allErrors
 	}
 }
