@@ -42,6 +42,18 @@ describe('Response', function() {
 		});
 	});
 
+	describe('keys', function() {
+		it('should return all the keys', function() {
+			const response = Response().withProps({
+				foo: 1,
+				bar: 2
+			});
+
+			expect(response.keys())
+				.to.deep.equal(['foo', 'bar']);
+		});
+	});
+
 	describe('count', function() {
 		it('should return prop count for a key', function() {
 			const response = Response()
@@ -59,7 +71,22 @@ describe('Response', function() {
 				bar: ['bar1', 'bar2']
 			});
 
-			expect(response.groups('foo', 'bar'))
+			expect(response.groups(['foo', 'bar']))
+				.to.deep.equal([
+					{foo: 'foo1', bar: 'bar1'},
+					{foo: 'foo2', bar: 'bar2'}
+				]);
+		});
+	});
+
+	describe('allGroups', function() {
+		it('should return prop groups for all keys', function() {
+			const response = Response().withProps({
+				foo: ['foo1', 'foo2'],
+				bar: ['bar1', 'bar2']
+			});
+
+			expect(response.allGroups())
 				.to.deep.equal([
 					{foo: 'foo1', bar: 'bar1'},
 					{foo: 'foo2', bar: 'bar2'}

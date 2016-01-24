@@ -24,11 +24,15 @@ export default function Response(props = Map()) {
 		return props.get(key, []);
 	}
 
+	function allKeys() {
+		return props.keySeq().toArray();
+	}
+
 	function propCount(key) {
 		return allProps(key).length;
 	}
 
-	function propGroups(...keys) {
+	function propGroups(keys) {
 		const groups = [];
 
 		keys.forEach((key) => {
@@ -38,6 +42,10 @@ export default function Response(props = Map()) {
 		});
 
 		return groups;
+	}
+
+	function allPropGroups() {
+		return propGroups(allKeys());
 	}
 
 	function withProp(key, value) {
@@ -55,14 +63,25 @@ export default function Response(props = Map()) {
 		}, Response(props));
 	}
 
+	function toJson(space) {
+		return JSON.stringify(
+			allPropGroups(),
+			null,
+			space
+		);
+	}
+
 	return {
 		withProp,
 		withProps,
+		toJson,
 		has: hasProp,
 		first: firstProp,
 		get: firstProp,
 		all: allProps,
+		keys: allKeys,
 		count: propCount,
-		groups: propGroups
+		groups: propGroups,
+		allGroups: allPropGroups
 	};
 }
