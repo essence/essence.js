@@ -4,6 +4,14 @@ import Errors from '../src/Errors';
 
 
 describe('Errors', function() {
+	describe('count', function() {
+		it('should return error count', function() {
+			const errors = Errors([1, 2, 3]);
+
+			expect(errors.count()).to.equal(3);
+		});
+	});
+
 	describe('all', function() {
 		it('should return all errors', function() {
 			const errors = Errors([1, 2, 3]);
