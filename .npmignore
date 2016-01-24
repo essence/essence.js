@@ -1,5 +1,7 @@
-examples/
+lib/
 test/
+examples/
 .git*
+.babelrc
 .jshintrc
 .travis.yml

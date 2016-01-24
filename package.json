@@ -1,7 +1,7 @@
 {
   "name": "essence",
-  "version": "0.1.0",
-  "description": "",
+  "version": "1.0.0",
+  "description": "Extracts information about web pages",
   "main": "index.js",
   "dependencies": {
     "axios": "^0.9.0",
@@ -12,6 +12,8 @@
     "xml2js": "^0.4.15"
   },
   "devDependencies": {
+    "babel": "^6.3.26",
+    "babel-cli": "^6.4.5",
     "babel-core": "^6.4.5",
     "babel-loader": "^6.2.1",
     "babel-plugin-transform-runtime": "^6.4.3",
@@ -22,17 +24,11 @@
     "chai": "^3.4.1",
     "chai-as-promised": "^5.2.0",
     "eslint": "^1.7.3",
-    "eslint-loader": "^1.1.0",
-    "json-loader": "^0.5.3",
-    "mocha": "^2.3.4",
-    "source-map-support": "^0.4.0",
-    "webpack": "^1.12.2",
-    "webpack-dev-server": "^1.12.1"
+    "mocha": "^2.3.4"
   },
   "scripts": {
-    "start": "npm run buildWatch & npm run testWatch",
-    "build": "webpack",
-    "buildWatch": "webpack",
+    "start": "npm run testWatch",
+    "build": "babel src --out-dir lib",
     "test": "mocha --compilers js:babel-register",
     "testWatch": "mocha --watch --compilers js:babel-register"
   },
