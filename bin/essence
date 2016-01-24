@@ -1,0 +1,27 @@
+#!/usr/bin/env node
+
+var program = require('commander');
+var container = require('../lib/index').container;
+var extract = container.get('extractor');
+
+
+
+program
+	.version('1.0.0');
+
+program
+	.command('extract [url]')
+	.description('extracts information about a web page')
+	.action(function(url) {
+		extract(url)
+			.then(function(payload) {
+				console.log(payload.res.toJson(2));
+
+				if (payload.err.count()) {
+					console.log(payload.err.toJson(2));
+				}
+			})
+			.catch(console.error);
+	})
+
+program.parse(process.argv);
