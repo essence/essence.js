@@ -28,10 +28,10 @@
     "mocha": "^2.3.4"
   },
   "scripts": {
-    "start": "npm run testWatch",
+    "start": "npm run test-watch",
     "build": "babel src --out-dir lib",
-    "test": "mocha --compilers js:babel-register",
-    "testWatch": "mocha --watch --compilers js:babel-register"
+    "test": "mocha --recursive --compilers js:babel-register",
+    "test-watch": "mocha --watch --recursive --compilers js:babel-register"
   },
   "repository": {
     "type": "git",
