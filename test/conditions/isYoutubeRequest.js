@@ -5,7 +5,7 @@ import isYoutubeRequest from '../../src/conditions/isYoutubeRequest';
 
 
 describe('isYoutubeRequest', function() {
-	it('should return if the requested URL points to Youtube', function() {
+	it('should tell if the requested URL points to Youtube', function() {
 		expect(isYoutubeRequest({
 			req: Request('https://www.youtube.com/watch?v=eNcbmrKdf3U')
 		})).to.be.true;
