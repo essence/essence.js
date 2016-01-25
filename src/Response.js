@@ -8,6 +8,10 @@ import reduce from 'lodash/collection/reduce';
  *
  */
 export default function Response(props = Map()) {
+	function isEmpty() {
+		return !props.size;
+	}
+
 	function hasProp(key) {
 		return props.has(key);
 	}
@@ -72,6 +76,7 @@ export default function Response(props = Map()) {
 	}
 
 	return {
+		isEmpty,
 		withProp,
 		withProps,
 		toJson,

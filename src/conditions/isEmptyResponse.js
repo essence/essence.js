@@ -2,5 +2,5 @@
  *
  */
 export default function isEmptyResponse({res}) {
-	return !res.has('title');
+	return res.isEmpty();
 }

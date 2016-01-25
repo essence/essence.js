@@ -4,6 +4,16 @@ import Response from '../src/Response';
 
 
 describe('Response', function() {
+	describe('isEmpty', function() {
+		it('should tell if the response is empty', function() {
+			const response = Response();
+
+			expect(response.isEmpty()).to.be.true;
+			expect(response.withProp('bar').isEmpty())
+				.to.be.false;
+		});
+	});
+
 	describe('has', function() {
 		it('should tell if a prop exists', function() {
 			const response = Response().withProp('foo', 'bar');

@@ -5,7 +5,7 @@ import isEmptyResponse from '../../src/conditions/isEmptyResponse';
 
 
 describe('isEmptyResponse', function() {
-	it('should return if the request has a title', function() {
+	it('should tell if the response is empty', function() {
 		expect(isEmptyResponse({
 			res: Response()
 		})).to.be.true;
