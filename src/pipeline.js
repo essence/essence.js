@@ -1,8 +1,8 @@
 /**
  *
  */
-export default function pipeline(...middlewares) {
-	return async function(payload) {
+export default function createPipeline(...middlewares) {
+	return async function pipeline(payload) {
 		try {
 			for (const middleware of middlewares) {
 				payload = await middleware(payload);

@@ -1,8 +1,8 @@
 /**
  *
  */
-export default function condition(condition, middleware) {
-	return async function(payload) {
+export default function createCondition(condition, middleware) {
+	return async function condition(payload) {
 		return condition(payload)
 			? await middleware(payload)
 			: payload;
