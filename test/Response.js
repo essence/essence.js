@@ -7,10 +7,10 @@ describe('Response', function() {
 	describe('isEmpty', function() {
 		it('should tell if the response is empty', function() {
 			const response = Response();
+			const otherResponse = response.withProp('title', 'Title');
 
 			expect(response.isEmpty()).to.be.true;
-			expect(response.withProp('bar').isEmpty())
-				.to.be.false;
+			expect(otherResponse.isEmpty()).to.be.false;
 		});
 	});
 
