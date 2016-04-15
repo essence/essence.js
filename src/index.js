@@ -1,3 +1,10 @@
+import container from './container';
+
+
+
+/**
+ *
+ */
 export {default as Container} from './Container';
 export {default as container} from './container';
 export {default as condition} from './condition';
@@ -13,3 +20,5 @@ export {default as oEmbedKnownExtractor} from './extractors/oEmbedKnown';
 export {default as metaTagsExtractor} from './extractors/metaTags';
 export {default as fillUrlPresenter} from './presenters/fillUrl';
 export {default as mapperPresenter} from './presenters/mapper';
+
+export default container.get('extractor');
