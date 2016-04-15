@@ -5,7 +5,7 @@
   "repository": "essence/essence.js",
   "author": "Félix Girault <felix.girault@gmail.com>",
   "license": "MIT",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "start": "npm run test-watch",
     "build": "babel src --out-dir lib",
