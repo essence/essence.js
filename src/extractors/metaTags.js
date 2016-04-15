@@ -5,7 +5,7 @@ import cheerio from 'cheerio';
 /**
  *	@TODO: stream the page to stop early.
  */
-function extractProperties(pattern, html) {
+const extractProperties = (pattern, html) => {
 	const $ = cheerio.load(html);
 	const metas = $('meta', 'head');
 	const props = {};
@@ -27,7 +27,9 @@ function extractProperties(pattern, html) {
 	});
 
 	return props;
-}
+};
+
+
 
 /**
  *

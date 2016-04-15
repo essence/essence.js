@@ -5,11 +5,12 @@ import {reduce} from 'lodash';
 /**
  *
  */
-function mapProp(res, to, from) {
-	return res.has(from)
+const mapProp = (res, to, from) =>
+	res.has(from)
 		? res.withProp(to, res.get(from))
 		: res;
-}
+
+
 
 /**
  *

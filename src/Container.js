@@ -6,8 +6,8 @@ import {memoize} from 'lodash';
 /**
  *
  */
-export default function Container(factories = Map()) {
-	function get(key) {
+export default function createContainer(factories = Map()) {
+	const get = (key) => {
 		const factory = factories.get(key);
 
 		if (!factory) {
@@ -17,21 +17,17 @@ export default function Container(factories = Map()) {
 		}
 
 		return factory();
-	}
+	};
 
-	function withFactory(key, factory) {
-		return Container(
-			factories.set(key, factory)
-		);
-	}
+	const withFactory = (key, factory) =>
+		createContainer(factories.set(key, factory));
 
-	function withUniqueFactory(key, factory) {
-		return withFactory(key, memoize(factory));
-	}
+	const withUniqueFactory = (key, factory) =>
+		withFactory(key, memoize(factory));
 
 	return {
 		get,
 		with: withFactory,
 		withUnique: withUniqueFactory
-	}
+	};
 }

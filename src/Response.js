@@ -6,36 +6,31 @@ import {set, reduce} from 'lodash';
 /**
  *
  */
-export default function Response(props = Map()) {
-	function isEmpty() {
-		return !props.size;
-	}
+export default function createResponse(props = Map()) {
+	const isEmpty = () =>
+		!props.size;
 
-	function hasProp(key) {
-		return props.has(key);
-	}
+	const hasProp = (key) =>
+		props.has(key);
 
-	function firstProp(key, missing) {
+	const firstProp = (key, missing) => {
 		const all = allProps(key);
 
 		return all.length
 			? all[0]
 			: missing;
-	}
+	};
 
-	function allProps(key) {
-		return props.get(key, []);
-	}
+	const allProps = (key) =>
+		props.get(key, []);
 
-	function allKeys() {
-		return props.keySeq().toArray();
-	}
+	const allKeys = () =>
+		props.keySeq().toArray();
 
-	function propCount(key) {
-		return allProps(key).length;
-	}
+	const propCount = (key) =>
+		allProps(key).length;
 
-	function propGroups(keys) {
+	const propGroups = (keys) => {
 		const groups = [];
 
 		keys.forEach((key) => {
@@ -45,34 +40,34 @@ export default function Response(props = Map()) {
 		});
 
 		return groups;
-	}
+	};
 
-	function allPropGroups() {
-		return propGroups(allKeys());
-	}
+	const allPropGroups = () =>
+		propGroups(allKeys());
 
-	function withProp(key, value) {
+	const withProp = (key, value) => {
 		const all = allProps(key);
 		const values = all.concat(value);
 
-		return Response(
+		return createResponse(
 			props.set(key, values)
 		);
-	}
+	};
 
-	function withProps(newProps) {
-		return reduce(newProps, (res, value, key) => {
-			return res.withProp(key, value);
-		}, Response(props));
-	}
+	const withProps = (newProps) =>
+		reduce(
+			newProps,
+			(res, value, key) =>
+				res.withProp(key, value),
+			createResponse(props)
+		);
 
-	function toJson(space) {
-		return JSON.stringify(
+	const toJson = (space) =>
+		JSON.stringify(
 			allPropGroups(),
 			null,
 			space
 		);
-	}
 
 	return {
 		isEmpty,
@@ -88,4 +83,4 @@ export default function Response(props = Map()) {
 		groups: propGroups,
 		allGroups: allPropGroups
 	};
-}
+};

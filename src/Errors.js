@@ -1,34 +1,30 @@
+import {constant} from 'lodash';
+
+
+
 /**
  *
  */
-export default function Errors(errors = []) {
-	function errorCount() {
-		return errors.length;
-	}
+export default function createErrors(errors = []) {
+	const count = () =>
+		errors.length;
 
-	function allErrors() {
-		return errors;
-	}
+	const all = constant(errors);
 
-	function withError(error) {
-		return Errors(
-			errors.concat(error)
-		);
-	}
+	const withError = (error) =>
+		createErrors(errors.concat(error));
 
-	function toJson(space) {
-		return JSON.stringify(
+	const toJson = (space) =>
+		JSON.stringify(
 			errors,
 			null,
 			space
 		);
-	}
 
 	return {
-		toJson,
-		count: errorCount,
+		count,
+		all,
 		withError,
-		withErrors: withError,
-		all: allErrors
-	}
+		toJson
+	};
 }

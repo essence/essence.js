@@ -1,17 +1,18 @@
+import {constant} from 'lodash';
+
+
+
 /**
  *
  */
-export default function Request(url) {
-	function getUrl() {
-		return url;
-	}
+export default function createRequest(url) {
+	const getUrl = constant(url);
 
-	function withUrl(url) {
-		return Request(url);
-	}
+	const withUrl = (url) =>
+		createRequest(url);
 
 	return {
-		withUrl,
-		url: getUrl
-	};
+		url: getUrl,
+		withUrl
+	}
 }

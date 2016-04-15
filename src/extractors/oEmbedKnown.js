@@ -1,3 +1,4 @@
+import {find} from 'lodash';
 import oEmbedExtractor from './oEmbed';
 
 
@@ -5,17 +6,10 @@ import oEmbedExtractor from './oEmbed';
 /**
  *
  */
-function findService(services, url) {
-	for (const name in services) {
-		const service = services[name];
+const findService = (services, url) =>
+	find(services, ({filter}) => filter.test(url));
 
-		if (service.filter.test(url)) {
-			return service;
-		}
-	}
 
-	return undefined;
-}
 
 /**
  *
