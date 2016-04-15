@@ -1,5 +1,5 @@
 import xml2js from 'xml2js';
-import isString from 'lodash/lang/isString';
+import {isString} from 'lodash';
 import {FORMAT_JSON, FORMAT_XML} from './oEmbedFormats';
 
 
@@ -40,6 +40,8 @@ async function parse(body, format) {
 			return {};
 	}
 }
+
+
 
 /**
  *

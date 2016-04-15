@@ -1,5 +1,5 @@
 import axios from 'axios';
-import memoize from 'lodash/function/memoize';
+import {memoize} from 'lodash';
 import Container from './Container';
 import extractor from './extractor';
 import pipeline from './pipeline';

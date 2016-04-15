@@ -1,6 +1,5 @@
 import {Map} from 'immutable';
-import set from 'lodash/object/set';
-import reduce from 'lodash/collection/reduce';
+import {set, reduce} from 'lodash';
 
 
 

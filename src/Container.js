@@ -1,5 +1,5 @@
 import {Map} from 'immutable';
-import memoize from 'lodash/function/memoize';
+import {memoize} from 'lodash';
 
 
 
