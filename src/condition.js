@@ -1,9 +1,9 @@
 /**
  *
  */
-export default function createCondition(condition, middleware) {
+export default function createCondition(predicate, middleware) {
 	return async function condition(payload) {
-		return condition(payload)
+		return predicate(payload)
 			? await middleware(payload)
 			: payload;
 	};

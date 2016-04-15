@@ -7,17 +7,14 @@ chai.use(chaiAsPromised);
 
 
 describe('condition', function() {
-	it('should pass a payload to the condition', function(done) {
+	it('should pass a payload to the condition', function() {
 		const payload = 'payload';
 		const condition = createCondition(
-			(p) => {
-				expect(p).to.equal(payload);
-				done();
-			},
+			(p) => expect(p).to.equal(payload),
 			() => {}
 		);
 
-		condition(payload);
+		return condition(payload);
 	});
 
 	it('should execute the middleware when the condition is true', function() {
