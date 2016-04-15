@@ -6,7 +6,7 @@ import oEmbedExtractor from './oEmbed';
 /**
  *	@TODO: stream the page to stop early.
  */
-function extractService(html) {
+const extractService = (html) => {
 	const $ = cheerio.load(html);
 	const links = $('link', 'head');
 	const pattern = /application\/(json|xml)\+oembed/i;
@@ -33,7 +33,7 @@ function extractService(html) {
 	});
 
 	return service;
-}
+};
 
 
 
