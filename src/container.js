@@ -46,18 +46,21 @@ const container = Container()
 		}
 	}))
 	.withUnique('oEmbedKnownExtractor', () =>
-		oEmbedKnownExtractor(
+		oEmbedKnownExtractor.bind(
+			null,
 			container.get('getBody'),
 			container.get('oEmbedServices')
 		)
 	)
 	.withUnique('oEmbedAutoExtractor', () =>
-		oEmbedAutoExtractor(
+		oEmbedAutoExtractor.bind(
+			null,
 			container.get('getBody')
 		)
 	)
 	.withUnique('openGraphExtractor', () =>
-		metaTagsExtractor(
+		metaTagsExtractor.bind(
+			null,
 			container.get('getBody'),
 			/^og:/i
 		)
@@ -78,7 +81,8 @@ const container = Container()
 		})
 	)
 	.withUnique('twitterTagsExtractor', () =>
-		metaTagsExtractor(
+		metaTagsExtractor.bind(
+			null,
 			container.get('getBody'),
 			/^twitter:/i
 		)

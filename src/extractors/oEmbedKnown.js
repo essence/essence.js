@@ -1,5 +1,5 @@
 import {find} from 'lodash';
-import oEmbedExtractor from './oEmbed';
+import extractOEmbed from './oEmbed';
 
 
 
@@ -14,23 +14,24 @@ const findService = (services, url) =>
 /**
  *
  */
-export default function oEmbedKnownExtractor(getBody, services) {
-	return async function extractOEmbedKnown(payload) {
-		const service = findService(
-			services,
-			payload.req.url()
-		);
+export default async function extract(
+	getBody,
+	services,
+	payload
+) {
+	const service = findService(
+		services,
+		payload.req.url()
+	);
 
-		if (!service) {
-			return payload;
-		}
+	if (!service) {
+		return payload;
+	}
 
-		const extract = oEmbedExtractor(
-			getBody,
-			service.endpoint,
-			service.format
-		);
-
-		return extract(payload);
-	};
+	return extractOEmbed(
+		getBody,
+		service.endpoint,
+		service.format,
+		payload
+	);
 }

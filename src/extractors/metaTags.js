@@ -34,15 +34,17 @@ const extractProperties = (pattern, html) => {
 /**
  *
  */
-export default function metaTagsExtractor(getBody, pattern) {
-	return async function extractMetaTags({req, res, err}) {
-		const html = await getBody(req.url());
-		const props = extractProperties(pattern, html);
+export default async function extract(
+	getBody,
+	pattern,
+	{req, res, err}
+) {
+	const html = await getBody(req.url());
+	const props = extractProperties(pattern, html);
 
-		return {
-			req,
-			res: res.withProps(props),
-			err
-		};
+	return {
+		req,
+		res: res.withProps(props),
+		err
 	};
 }

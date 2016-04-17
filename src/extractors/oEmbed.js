@@ -46,16 +46,19 @@ async function parse(body, format) {
 /**
  *
  */
-export default function oEmbedExtractor(getBody, endpoint, format = FORMAT_JSON) {
-	return async function extractOEmbed({req, res, err}) {
-		const url = endpoint.replace(/:url/i, req.url());
-		const body = await getBody(url);
-		const props = await parse(body, format);
+export default async function extract(
+	getBody,
+	endpoint,
+	format = FORMAT_JSON,
+	{req, res, err}
+) {
+	const url = endpoint.replace(/:url/i, req.url());
+	const body = await getBody(url);
+	const props = await parse(body, format);
 
-		return {
-			req,
-			res: res.withProps(props),
-			err
-		};
+	return {
+		req,
+		res: res.withProps(props),
+		err
 	};
 }

@@ -1,5 +1,5 @@
 import cheerio from 'cheerio';
-import oEmbedExtractor from './oEmbed';
+import extractOEmbed from './oEmbed';
 
 
 
@@ -40,21 +40,18 @@ const extractService = (html) => {
 /**
  *
  */
-export default function oEmbedAutoExtractor(getBody) {
-	return async function extractOEmbedAuto(payload) {
-		const html = await getBody(payload.req.url());
-		const service = extractService(html);
+export default async function extract(getBody, payload) {
+	const html = await getBody(payload.req.url());
+	const service = extractService(html);
 
-		if (!service) {
-			return payload;
-		}
+	if (!service) {
+		return payload;
+	}
 
-		const extract = oEmbedExtractor(
-			getBody,
-			service.endpoint,
-			service.format
-		);
-
-		return extract(payload);
-	};
+	return extractOEmbed(
+		getBody,
+		service.endpoint,
+		service.format,
+		payload
+	);
 }
