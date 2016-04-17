@@ -4,13 +4,13 @@ Extracts informations about web pages, like youtube videos, twitter statuses or 
 
 [![Build Status](https://travis-ci.org/essence/essence.js.svg?branch=master)](https://travis-ci.org/essence/essence.js)
 
-# Installation
+## Installation
 
 ```sh
 npm install essence
 ```
 
-# Usage
+## Usage
 
 ```js
 import extract from 'essence';

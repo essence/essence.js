@@ -3,7 +3,7 @@ import container from './container';
 
 
 /**
- *
+ *	Reexports.
  */
 export {default as Container} from './Container';
 export {default as container} from './container';
@@ -21,4 +21,7 @@ export {default as metaTagsExtractor} from './extractors/metaTags';
 export {default as fillUrlPresenter} from './presenters/fillUrl';
 export {default as mapperPresenter} from './presenters/mapper';
 
+/**
+ *	A default extractor.
+ */
 export default container.get('extractor');
