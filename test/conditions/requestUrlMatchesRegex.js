@@ -1,14 +1,16 @@
 import {expect} from 'chai';
+import {curry} from 'lodash';
 import Request from '../../src/Request';
-import createRequestUrlTester from '../../src/conditions/requestUrlMatchesRegex';
+import requestUrlMatchesRegex from '../../src/conditions/requestUrlMatchesRegex';
 
 
 
 describe('requestUrlMatchesRegex', function() {
 	it('should tell if the requested URL matches a regex', function() {
-		const isYoutubeRequest = createRequestUrlTester(
-			/youtube\.com|youtu\.be/i
-		);
+		const isYoutubeRequest =
+			curry(requestUrlMatchesRegex)(
+				/youtube\.com|youtu\.be/i
+			);
 
 		expect(isYoutubeRequest({
 			req: Request('https://www.youtube.com/watch?v=eNcbmrKdf3U')

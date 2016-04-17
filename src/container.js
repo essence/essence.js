@@ -5,7 +5,7 @@ import extractor from './extractor';
 import pipeline from './pipeline';
 import condition from './condition';
 import isResponseEmpty from './conditions/isResponseEmpty';
-import createRequestUrlTester from './conditions/requestUrlMatchesRegex';
+import requestUrlMatchesRegex from './conditions/requestUrlMatchesRegex';
 import youtubePreparator from './preparators/youtube';
 import metaTagsExtractor from './extractors/metaTags';
 import {FORMAT_JSON, FORMAT_XML} from './extractors/oEmbedFormats';
@@ -35,7 +35,9 @@ const container = Container()
 		};
 	})
 	.withUnique('isYoutubeRequest', () =>
-		createRequestUrlTester(/youtube\.com|youtu\.be/i)
+		curry(requestUrlMatchesRegex)(
+			/youtube\.com|youtu\.be/i
+		)
 	)
 	.withUnique('youtubePreparator', youtubePreparator)
 	.withUnique('oEmbedServices', () => ({
