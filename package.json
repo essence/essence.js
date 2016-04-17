@@ -6,6 +6,7 @@
   "author": "Félix Girault <felix.girault@gmail.com>",
   "license": "MIT",
   "main": "lib/index.js",
+  "bin": "bin/essence",
   "scripts": {
     "start": "npm run test-watch",
     "build": "babel src --out-dir lib",
