@@ -5,10 +5,10 @@ import container from './container';
 /**
  *	Reexports.
  */
-export {default as Container} from './Container';
-export {default as Errors} from './Errors';
-export {default as Request} from './Request';
-export {default as Response} from './Response';
+export {default as createContainer} from './createContainer';
+export {default as createErrors} from './createErrors';
+export {default as createRequest} from './createRequest';
+export {default as createResponse} from './createResponse';
 export {default as container} from './container';
 export {default as condition} from './condition';
 export {default as pipeline} from './pipeline';

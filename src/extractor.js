@@ -1,6 +1,6 @@
-import Request from './Request';
-import Response from './Response';
-import Errors from './Errors';
+import createRequest from './createRequest';
+import createResponse from './createResponse';
+import createErrors from './createErrors';
 
 
 
@@ -21,9 +21,9 @@ export default function extractor(middlewares) {
 	 */
 	return async function extract(url) {
 		let payload = {
-			req: Request(url),
-			res: Response(),
-			err: Errors()
+			req: createRequest(url),
+			res: createResponse(),
+			err: createErrors()
 		};
 
 		for (const middleware of middlewares) {

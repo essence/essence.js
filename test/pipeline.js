@@ -1,7 +1,6 @@
 import chai, {expect} from 'chai';
 import chaiAsPromised from 'chai-as-promised';
-import Errors from '../src/Errors';
-import {pipeline as createPipeline} from '../src';
+import {pipeline as createPipeline, createErrors} from '../src';
 
 chai.use(chaiAsPromised);
 
@@ -40,7 +39,7 @@ describe('pipeline', function() {
 	it('should interrupt the pipeline if a middleware throws', function() {
 		const payload = {
 			number: 1,
-			err: Errors()
+			err: createErrors()
 		};
 
 		const pipeline = createPipeline(
@@ -56,7 +55,7 @@ describe('pipeline', function() {
 
 	it('should return an error if a middleware throws', function() {
 		const payload = {
-			err: Errors()
+			err: createErrors()
 		};
 
 		const pipeline = createPipeline(

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {memoize, curry} from 'lodash';
-import Container from './Container';
+import createContainer from './createContainer';
 import extractor from './extractor';
 import pipeline from './pipeline';
 import condition from './condition';
@@ -19,7 +19,7 @@ import fillUrl from './presenters/fillUrl';
 /**
  *
  */
-const container = Container()
+const container = createContainer()
 	.withUnique('getHeaders', () => {
 		const head = memoize(axios.head);
 

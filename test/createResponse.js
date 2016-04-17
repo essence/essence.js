@@ -1,12 +1,12 @@
 import {expect} from 'chai';
-import {Response} from '../src';
+import {createResponse} from '../src';
 
 
 
-describe('Response', function() {
+describe('createResponse', function() {
 	describe('isEmpty', function() {
 		it('should tell if the response is empty', function() {
-			const response = Response();
+			const response = createResponse();
 			const otherResponse = response.withProp('title', 'Title');
 
 			expect(response.isEmpty()).to.be.true;
@@ -16,7 +16,7 @@ describe('Response', function() {
 
 	describe('has', function() {
 		it('should tell if a prop exists', function() {
-			const response = Response().withProp('foo', 'bar');
+			const response = createResponse().withProp('foo', 'bar');
 
 			expect(response.has('foo')).to.be.true;
 			expect(response.has('bar')).to.be.false;
@@ -25,7 +25,7 @@ describe('Response', function() {
 
 	describe('get/first', function() {
 		it('should return the first prop for a key', function() {
-			const response = Response()
+			const response = createResponse()
 				.withProp('foo', 'bar')
 				.withProp('foo', 'baz');
 
@@ -33,7 +33,7 @@ describe('Response', function() {
 		});
 
 		it('should return a default value for a missing key', function() {
-			const response = Response();
+			const response = createResponse();
 			const missing = 'missing';
 
 			expect(response.get('foo', missing))
@@ -43,7 +43,7 @@ describe('Response', function() {
 
 	describe('all', function() {
 		it('should return all the prop for a key', function() {
-			const response = Response()
+			const response = createResponse()
 				.withProp('foo', 'bar')
 				.withProp('foo', 'baz');
 
@@ -54,7 +54,7 @@ describe('Response', function() {
 
 	describe('keys', function() {
 		it('should return all the keys', function() {
-			const response = Response().withProps({
+			const response = createResponse().withProps({
 				foo: 1,
 				bar: 2
 			});
@@ -66,7 +66,7 @@ describe('Response', function() {
 
 	describe('count', function() {
 		it('should return prop count for a key', function() {
-			const response = Response()
+			const response = createResponse()
 				.withProp('foo', 'bar')
 				.withProp('foo', 'baz');
 
@@ -76,7 +76,7 @@ describe('Response', function() {
 
 	describe('groups', function() {
 		it('should return prop groups for keys', function() {
-			const response = Response().withProps({
+			const response = createResponse().withProps({
 				foo: ['foo1', 'foo2'],
 				bar: ['bar1', 'bar2']
 			});
@@ -91,7 +91,7 @@ describe('Response', function() {
 
 	describe('allGroups', function() {
 		it('should return prop groups for all keys', function() {
-			const response = Response().withProps({
+			const response = createResponse().withProps({
 				foo: ['foo1', 'foo2'],
 				bar: ['bar1', 'bar2']
 			});
@@ -106,7 +106,7 @@ describe('Response', function() {
 
 	describe('withProp', function() {
 		it('should return a new Response without affecting the original one', function() {
-			const response = Response();
+			const response = createResponse();
 			const otherResponse = response.withProp('foo', 'bar');
 
 			expect(response.get('foo')).to.be.undefined;
@@ -116,7 +116,7 @@ describe('Response', function() {
 
 	describe('withProps', function() {
 		it('should return a new Response without affecting the original one', function() {
-			const response = Response();
+			const response = createResponse();
 			const otherResponse = response.withProps({
 				foo: 'bar',
 				bar: 'baz'

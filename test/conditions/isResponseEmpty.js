@@ -1,17 +1,17 @@
 import {expect} from 'chai';
-import Response from '../../src/Response';
-import {isResponseEmpty} from '../../src';
+import {isResponseEmpty, createResponse} from '../../src';
 
 
 
 describe('isResponseEmpty', function() {
 	it('should tell if the response is empty', function() {
 		expect(isResponseEmpty({
-			res: Response()
+			res: createResponse()
 		})).to.be.true;
 
 		expect(isResponseEmpty({
-			res: Response().withProp('title', 'Title')
+			res: createResponse()
+				.withProp('title', 'Title')
 		})).to.be.false;
 	});
 });
