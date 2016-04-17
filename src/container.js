@@ -109,17 +109,17 @@ const container = createContainer()
 		//	),
 		condition(
 			isResponseEmpty,
-			pipeline(
+			curry(pipeline)([
 				container.get('openGraphExtractor'),
 				container.get('openGraphMapper')
-			)
+			])
 		),
 		condition(
 			isResponseEmpty,
-			pipeline(
+			curry(pipeline)([
 				container.get('twitterTagsExtractor'),
 				container.get('twitterTagsMapper')
-			)
+			])
 		),
 		//	condition(
 		//		container.get('isYoutubeRequest'),

@@ -1,6 +1,6 @@
 import chai, {expect} from 'chai';
 import chaiAsPromised from 'chai-as-promised';
-import {pipeline as createPipeline, createErrors} from '../src';
+import {pipeline, createErrors} from '../src';
 
 chai.use(chaiAsPromised);
 
@@ -25,13 +25,13 @@ describe('pipeline', function() {
 			number: 1
 		};
 
-		const pipeline = createPipeline(
+		const middlewares = [
 			increment,
 			increment,
 			increment
-		);
+		];
 
-		return expect(pipeline(payload))
+		return expect(pipeline(middlewares, payload))
 			.to.eventually.have.property('number')
 			.that.equal(4);
 	});
@@ -42,13 +42,13 @@ describe('pipeline', function() {
 			err: createErrors()
 		};
 
-		const pipeline = createPipeline(
+		const middlewares = [
 			increment,
 			throwError,
 			increment
-		);
+		];
 
-		return expect(pipeline(payload))
+		return expect(pipeline(middlewares, payload))
 			.to.eventually.have.property('number')
 			.that.equal(2);
 	});
@@ -58,13 +58,13 @@ describe('pipeline', function() {
 			err: createErrors()
 		};
 
-		const pipeline = createPipeline(
+		const middlewares = [
 			throwError
-		);
+		];
 
-		return expect(pipeline(payload))
-			.to.eventually.satisfy(({err}) => {
-				return err.count() === 1;
-			});
+		return expect(pipeline(middlewares, payload))
+			.to.eventually.satisfy(
+				({err}) => (err.count() === 1)
+			);
 	});
 });
