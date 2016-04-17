@@ -1,27 +1,36 @@
 #!/usr/bin/env node
 
-var program = require('commander');
-var container = require('../lib/index').container;
-var extract = container.get('extractor');
+const program = require('commander');
+const pkg = require('../package.json');
+const extract = require('..').default;
 
 
 
-program
-	.version('1.0.0');
+/**
+ *
+ */
+function extractAction(url) {
+	extract(url)
+		.then(function(payload) {
+			console.log(payload.res.toJson(2));
+
+			if (payload.err.count()) {
+				console.log(payload.err.toJson(2));
+			}
+		})
+		.catch(console.error);
+}
+
+
+
+/**
+ *
+ */
+program.version(pkg.version);
 
 program
 	.command('extract [url]')
 	.description('extracts information about a web page')
-	.action(function(url) {
-		extract(url)
-			.then(function(payload) {
-				console.log(payload.res.toJson(2));
-
-				if (payload.err.count()) {
-					console.log(payload.err.toJson(2));
-				}
-			})
-			.catch(console.error);
-	})
+	.action(extractAction);
 
 program.parse(process.argv);
