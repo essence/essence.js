@@ -45,25 +45,25 @@ const container = Container()
 			format: FORMAT_XML
 		}
 	}))
-	.withUnique('oEmbedKnownExtractor', () => {
-		return oEmbedKnownExtractor(
+	.withUnique('oEmbedKnownExtractor', () =>
+		oEmbedKnownExtractor(
 			container.get('getBody'),
 			container.get('oEmbedServices')
-		);
-	})
-	.withUnique('oEmbedAutoExtractor', () => {
-		return oEmbedAutoExtractor(
+		)
+	)
+	.withUnique('oEmbedAutoExtractor', () =>
+		oEmbedAutoExtractor(
 			container.get('getBody')
-		);
-	})
-	.withUnique('openGraphExtractor', () => {
-		return metaTagsExtractor(
+		)
+	)
+	.withUnique('openGraphExtractor', () =>
+		metaTagsExtractor(
 			container.get('getBody'),
 			/^og:/i
-		);
-	})
-	.withUnique('openGraphMapper', () => {
-		return mapperPresenter({
+		)
+	)
+	.withUnique('openGraphMapper', () =>
+		mapperPresenter({
 			'og:url': 'url',
 			'og:type': 'type',
 			'og:title': 'title',
@@ -75,63 +75,59 @@ const container = Container()
 			'og:image:height': 'height',
 			'og:video:width': 'width',
 			'og:video:height': 'height'
-		});
-	})
-	.withUnique('twitterTagsExtractor', () => {
-		return metaTagsExtractor(
+		})
+	)
+	.withUnique('twitterTagsExtractor', () =>
+		metaTagsExtractor(
 			container.get('getBody'),
 			/^twitter:/i
-		);
-	})
-	.withUnique('twitterTagsMapper', () => {
-		return mapperPresenter({
+		)
+	)
+	.withUnique('twitterTagsMapper', () =>
+		mapperPresenter({
 			'twitter:card': 'type',
 			'twitter:title': 'title',
 			'twitter:description': 'description',
 			'twitter:site': 'providerName',
 			'twitter:creator': 'authorName'
-		});
-	})
-	.withUnique('middlewares', () => {
-		return [
-			condition(
-				container.get('youtubePreparator')
-			),
-			condition(
-				isEmptyResponse,
-				container.get('oEmbedKnownExtractor')
-			),
-			//	condition(
-			//		isEmptyResponse,
-			//		container.get('oEmbedAutoExtractor')
-			//	),
-			condition(
-				isEmptyResponse,
-				pipeline(
-					container.get('openGraphExtractor'),
-					container.get('openGraphMapper')
-				)
-			),
-			condition(
-				isEmptyResponse,
-				pipeline(
-					container.get('twitterTagsExtractor'),
-					container.get('twitterTagsMapper')
-				)
-			),
-			//	condition(
-			//		youtubePresenter()
-			//	),
-			fillUrl
-		];
-	})
-	.withUnique('extractor', () => {
-		return extractor(
-			container.get('middlewares')
-		);
-	});
+		})
+	)
+	.withUnique('middlewares', () => ([
+		condition(
 			container.get('isYoutubeRequest'),
+			container.get('youtubePreparator')
+		),
+		condition(
+			isResponseEmpty,
+			container.get('oEmbedKnownExtractor')
+		),
+		//	condition(
+		//		isResponseEmpty,
+		//		container.get('oEmbedAutoExtractor')
+		//	),
+		condition(
+			isResponseEmpty,
+			pipeline(
+				container.get('openGraphExtractor'),
+				container.get('openGraphMapper')
+			)
+		),
+		condition(
+			isResponseEmpty,
+			pipeline(
+				container.get('twitterTagsExtractor'),
+				container.get('twitterTagsMapper')
+			)
+		),
+		//	condition(
 		//		container.get('isYoutubeRequest'),
+		//		youtubePresenter()
+		//	),
+		fillUrl
+	]))
+	.withUnique('extractor', () =>
+		extractor(container.get('middlewares'))
+	);
 
 
 
