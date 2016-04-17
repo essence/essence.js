@@ -1,5 +1,5 @@
 import {expect} from 'chai';
-import Errors from '../src/Errors';
+import {Errors} from '../src';
 
 
 

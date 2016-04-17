@@ -1,7 +1,7 @@
 import {expect} from 'chai';
 import {curry} from 'lodash';
 import Request from '../../src/Request';
-import requestUrlMatchesRegex from '../../src/conditions/requestUrlMatchesRegex';
+import {requestUrlMatchesRegex} from '../../src';
 
 
 

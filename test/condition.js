@@ -1,6 +1,6 @@
 import chai, {expect} from 'chai';
 import chaiAsPromised from 'chai-as-promised';
-import createCondition from '../src/condition';
+import {condition as createCondition} from '../src';
 
 chai.use(chaiAsPromised);
 

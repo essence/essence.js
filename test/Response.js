@@ -1,5 +1,5 @@
 import {expect} from 'chai';
-import Response from '../src/Response';
+import {Response} from '../src';
 
 
 

@@ -1,7 +1,7 @@
 import chai, {expect} from 'chai';
 import chaiAsPromised from 'chai-as-promised';
 import Errors from '../src/Errors';
-import createPipeline from '../src/pipeline';
+import {pipeline as createPipeline} from '../src';
 
 chai.use(chaiAsPromised);
 

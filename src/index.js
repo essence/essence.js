@@ -6,6 +6,9 @@ import container from './container';
  *	Reexports.
  */
 export {default as Container} from './Container';
+export {default as Errors} from './Errors';
+export {default as Request} from './Request';
+export {default as Response} from './Response';
 export {default as container} from './container';
 export {default as condition} from './condition';
 export {default as pipeline} from './pipeline';

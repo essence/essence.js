@@ -1,6 +1,6 @@
 import chai, {expect} from 'chai';
 import chaiAsPromised from 'chai-as-promised';
-import container from '../src/container';
+import {container} from '../src';
 
 chai.use(chaiAsPromised);
 

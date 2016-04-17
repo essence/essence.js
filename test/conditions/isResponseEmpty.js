@@ -1,6 +1,6 @@
 import {expect} from 'chai';
 import Response from '../../src/Response';
-import isResponseEmpty from '../../src/conditions/isResponseEmpty';
+import {isResponseEmpty} from '../../src';
 
 
 

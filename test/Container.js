@@ -1,5 +1,5 @@
 import {expect} from 'chai';
-import Container from '../src/Container';
+import {Container} from '../src';
 
 
 
