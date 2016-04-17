@@ -4,8 +4,8 @@ import Container from './Container';
 import extractor from './extractor';
 import pipeline from './pipeline';
 import condition from './condition';
-import isYoutubeRequest from './conditions/isYoutubeRequest';
-import isEmptyResponse from './conditions/isEmptyResponse';
+import isResponseEmpty from './conditions/isResponseEmpty';
+import createRequestUrlTester from './conditions/requestUrlMatchesRegex';
 import youtubePreparator from './preparators/youtube';
 import metaTagsExtractor from './extractors/metaTags';
 import {FORMAT_JSON, FORMAT_XML} from './extractors/oEmbedFormats';
@@ -34,6 +34,9 @@ const container = Container()
 			return get(url).then(response => response.data);
 		};
 	})
+	.withUnique('isYoutubeRequest', () =>
+		createRequestUrlTester(/youtube\.com|youtu\.be/i)
+	)
 	.withUnique('youtubePreparator', youtubePreparator)
 	.withUnique('oEmbedServices', () => ({
 		'youtube': {
@@ -92,7 +95,6 @@ const container = Container()
 	.withUnique('middlewares', () => {
 		return [
 			condition(
-				isYoutubeRequest,
 				container.get('youtubePreparator')
 			),
 			condition(
@@ -118,7 +120,6 @@ const container = Container()
 				)
 			),
 			//	condition(
-			//		isYoutubeRequest,
 			//		youtubePresenter()
 			//	),
 			fillUrl
@@ -129,6 +130,8 @@ const container = Container()
 			container.get('middlewares')
 		);
 	});
+			container.get('isYoutubeRequest'),
+		//		container.get('isYoutubeRequest'),
 
 
 

@@ -1,11 +1,15 @@
 import {expect} from 'chai';
 import Request from '../../src/Request';
-import isYoutubeRequest from '../../src/conditions/isYoutubeRequest';
+import createRequestUrlTester from '../../src/conditions/requestUrlMatchesRegex';
 
 
 
-describe('isYoutubeRequest', function() {
-	it('should tell if the requested URL points to Youtube', function() {
+describe('requestUrlMatchesRegex', function() {
+	it('should tell if the requested URL matches a regex', function() {
+		const isYoutubeRequest = createRequestUrlTester(
+			/youtube\.com|youtu\.be/i
+		);
+
 		expect(isYoutubeRequest({
 			req: Request('https://www.youtube.com/watch?v=eNcbmrKdf3U')
 		})).to.be.true;
