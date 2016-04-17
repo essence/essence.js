@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {memoize} from 'lodash';
+import {memoize, curry} from 'lodash';
 import Container from './Container';
 import extractor from './extractor';
 import pipeline from './pipeline';
@@ -46,21 +46,18 @@ const container = Container()
 		}
 	}))
 	.withUnique('oEmbedKnownExtractor', () =>
-		oEmbedKnownExtractor.bind(
-			null,
+		curry(oEmbedKnownExtractor)(
 			container.get('getBody'),
 			container.get('oEmbedServices')
 		)
 	)
 	.withUnique('oEmbedAutoExtractor', () =>
-		oEmbedAutoExtractor.bind(
-			null,
+		curry(oEmbedAutoExtractor)(
 			container.get('getBody')
 		)
 	)
 	.withUnique('openGraphExtractor', () =>
-		metaTagsExtractor.bind(
-			null,
+		curry(metaTagsExtractor)(
 			container.get('getBody'),
 			/^og:/i
 		)
@@ -81,8 +78,7 @@ const container = Container()
 		})
 	)
 	.withUnique('twitterTagsExtractor', () =>
-		metaTagsExtractor.bind(
-			null,
+		curry(metaTagsExtractor)(
 			container.get('getBody'),
 			/^twitter:/i
 		)
