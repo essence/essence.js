@@ -13,17 +13,16 @@ export default function createPipeline(...middlewares) {
 	 *	@param object Updated payload.
 	 */
 	return async function pipeline(payload) {
+		let p = {...payload};
+
 		try {
 			for (const middleware of middlewares) {
-				payload = await middleware(payload);
+				p = await middleware(p);
 			}
 		} catch (e) {
-			return {
-				...payload,
-				err: payload.err.withError(e)
-			};
+			p.err = p.err.withError(e);
 		}
 
-		return payload;
+		return p;
 	};
 }
