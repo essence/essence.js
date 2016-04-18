@@ -1,5 +1,4 @@
 import {expect} from 'chai';
-import {curry} from 'lodash';
 import {requestUrlMatchesRegex, createRequest} from '../../src';
 
 
@@ -7,7 +6,8 @@ import {requestUrlMatchesRegex, createRequest} from '../../src';
 describe('requestUrlMatchesRegex', function() {
 	it('should tell if the requested URL matches a regex', function() {
 		const isYoutubeRequest =
-			curry(requestUrlMatchesRegex)(
+			requestUrlMatchesRegex.bind(
+				null,
 				/youtube\.com|youtu\.be/i
 			);
 

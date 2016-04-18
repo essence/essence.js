@@ -35,13 +35,15 @@ const container = createContainer()
 		};
 	})
 	.withUnique('isYoutubeRequest', () =>
-		curry(requestUrlMatchesRegex)(
+		requestUrlMatchesRegex.bind(
+			null,
 			/youtube\.com|youtu\.be/i
 		)
 	)
 
 	.withUnique('youtubePreparator', () =>
-		curry(refactorRequestUrl)(
+		refactorRequestUrl.bind(
+			null,
 			/^(.*)(v=|v\/|embed\/|youtu\.be\/)([a-z0-9_-]+)(.*)$/i,
 			'https://www.youtube.com/watch?v=$3'
 		)
@@ -55,18 +57,21 @@ const container = createContainer()
 		}
 	}))
 	.withUnique('oEmbedKnownExtractor', () =>
-		curry(oEmbedKnownExtractor)(
+		oEmbedKnownExtractor.bind(
+			null,
 			container.get('getBody'),
 			container.get('oEmbedServices')
 		)
 	)
 	.withUnique('oEmbedAutoExtractor', () =>
-		curry(oEmbedAutoExtractor)(
+		oEmbedAutoExtractor.bind(
+			null,
 			container.get('getBody')
 		)
 	)
 	.withUnique('openGraphExtractor', () =>
-		curry(metaTagsExtractor)(
+		metaTagsExtractor.bind(
+			null,
 			container.get('getBody'),
 			/^og:/i
 		)
@@ -87,7 +92,8 @@ const container = createContainer()
 		})
 	)
 	.withUnique('twitterTagsExtractor', () =>
-		curry(metaTagsExtractor)(
+		metaTagsExtractor.bind(
+			null,
 			container.get('getBody'),
 			/^twitter:/i
 		)
@@ -116,14 +122,14 @@ const container = createContainer()
 		//	),
 		condition(
 			isResponseEmpty,
-			curry(pipeline)([
+			pipeline.bind(null, [
 				container.get('openGraphExtractor'),
 				container.get('openGraphMapper')
 			])
 		),
 		condition(
 			isResponseEmpty,
-			curry(pipeline)([
+			pipeline.bind(null, [
 				container.get('twitterTagsExtractor'),
 				container.get('twitterTagsMapper')
 			])
@@ -135,9 +141,7 @@ const container = createContainer()
 		fillResponseUrl
 	]))
 	.withUnique('extractor', () =>
-		curry(extract)(
-			container.get('middlewares')
-		)
+		extract.bind(null, container.get('middlewares'))
 	);
 
 
