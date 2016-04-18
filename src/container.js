@@ -6,7 +6,7 @@ import pipeline from './pipeline';
 import condition from './condition';
 import isResponseEmpty from './conditions/isResponseEmpty';
 import requestUrlMatchesRegex from './conditions/requestUrlMatchesRegex';
-import youtubePreparator from './preparators/youtube';
+import refactorRequestUrl from './preparators/refactorRequestUrl';
 import metaTagsExtractor from './extractors/metaTags';
 import {FORMAT_JSON, FORMAT_XML} from './extractors/oEmbedFormats';
 import oEmbedKnownExtractor from './extractors/oEmbedKnown';
@@ -39,7 +39,14 @@ const container = createContainer()
 			/youtube\.com|youtu\.be/i
 		)
 	)
-	.withUnique('youtubePreparator', youtubePreparator)
+
+	.withUnique('youtubePreparator', () =>
+		curry(refactorRequestUrl)(
+			/^(.*)(v=|v\/|embed\/|youtu\.be\/)([a-z0-9_-]+)(.*)$/i,
+			'https://www.youtube.com/watch?v=$3'
+		)
+	)
+
 	.withUnique('oEmbedServices', () => ({
 		'youtube': {
 			filter: /youtube\.com|youtu\.be/i,
