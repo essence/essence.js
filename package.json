@@ -11,7 +11,8 @@
     "start": "npm run test-watch",
     "build": "babel src --out-dir lib",
     "test": "mocha --recursive --compilers js:babel-register",
-    "test-watch": "mocha --watch --recursive --compilers js:babel-register"
+    "test-watch": "mocha --watch --recursive --compilers js:babel-register",
+    "prepublish": "npm run test && npm run build"
   },
   "dependencies": {
     "axios": "^0.9.1",
