@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {memoize, curry} from 'lodash';
+import {memoize, property} from 'lodash';
 import createContainer from './createContainer';
 import extract from './extract';
 import pipeline from './pipeline';
@@ -20,20 +20,25 @@ import fillResponseUrl from './presenters/fillResponseUrl';
  *
  */
 const container = createContainer()
+
 	.withUnique('getHeaders', () => {
 		const head = memoize(axios.head);
 
 		return async function(url) {
-			return head(url).then(response => response.headers);
+			return head(url)
+				.then(property('headers'));
 		};
 	})
+
 	.withUnique('getBody', () => {
 		const get = memoize(axios.get);
 
 		return async function(url) {
-			return get(url).then(response => response.data);
+			return get(url)
+				.then(property('data'));
 		};
 	})
+
 	.withUnique('isYoutubeRequest', () =>
 		requestUrlMatchesRegex.bind(
 			null,
@@ -56,6 +61,7 @@ const container = createContainer()
 			format: FORMAT_XML
 		}
 	}))
+
 	.withUnique('oEmbedKnownExtractor', () =>
 		oEmbedKnownExtractor.bind(
 			null,
@@ -63,12 +69,14 @@ const container = createContainer()
 			container.get('oEmbedServices')
 		)
 	)
+
 	.withUnique('oEmbedAutoExtractor', () =>
 		oEmbedAutoExtractor.bind(
 			null,
 			container.get('getBody')
 		)
 	)
+
 	.withUnique('openGraphExtractor', () =>
 		metaTagsExtractor.bind(
 			null,
@@ -76,6 +84,7 @@ const container = createContainer()
 			/^og:/i
 		)
 	)
+
 	.withUnique('openGraphMapper', () =>
 		mapResponseProps.bind(null, {
 			'og:url': 'url',
@@ -91,6 +100,7 @@ const container = createContainer()
 			'og:video:height': 'height'
 		})
 	)
+
 	.withUnique('twitterTagsExtractor', () =>
 		metaTagsExtractor.bind(
 			null,
@@ -98,6 +108,7 @@ const container = createContainer()
 			/^twitter:/i
 		)
 	)
+
 	.withUnique('twitterTagsMapper', () =>
 		mapResponseProps.bind(null, {
 			'twitter:card': 'type',
@@ -107,6 +118,7 @@ const container = createContainer()
 			'twitter:creator': 'authorName'
 		})
 	)
+
 	.withUnique('middlewares', () => ([
 		condition(
 			container.get('isYoutubeRequest'),
@@ -140,6 +152,7 @@ const container = createContainer()
 		//	),
 		fillResponseUrl
 	]))
+
 	.withUnique('extractor', () =>
 		extract.bind(null, container.get('middlewares'))
 	);
