@@ -12,7 +12,7 @@ export {default as createResponse} from './createResponse';
 export {default as container} from './container';
 export {default as condition} from './condition';
 export {default as pipeline} from './pipeline';
-export {default as extractor} from './extractor';
+export {default as extract} from './extract';
 export {default as isResponseEmpty} from './conditions/isResponseEmpty';
 export {default as requestUrlMatchesRegex} from './conditions/requestUrlMatchesRegex';
 export {default as youtubePreparator} from './preparators/youtube';

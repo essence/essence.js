@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {memoize, curry} from 'lodash';
 import createContainer from './createContainer';
-import extractor from './extractor';
+import extract from './extract';
 import pipeline from './pipeline';
 import condition from './condition';
 import isResponseEmpty from './conditions/isResponseEmpty';
@@ -128,7 +128,9 @@ const container = createContainer()
 		fillUrl
 	]))
 	.withUnique('extractor', () =>
-		extractor(container.get('middlewares'))
+		curry(extract)(
+			container.get('middlewares')
+		)
 	);
 
 
