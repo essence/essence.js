@@ -17,14 +17,15 @@ async function throwError() {
 	throw Error();
 }
 
+const payload = {
+	number: 1,
+	err: createErrors()
+};
+
 
 
 describe('pipeline', function() {
 	it('should pass a payload through the middlewares', function() {
-		const payload = {
-			number: 1
-		};
-
 		const middlewares = [
 			increment,
 			increment,
@@ -37,11 +38,6 @@ describe('pipeline', function() {
 	});
 
 	it('should interrupt the pipeline if a middleware throws', function() {
-		const payload = {
-			number: 1,
-			err: createErrors()
-		};
-
 		const middlewares = [
 			increment,
 			throwError,
@@ -53,18 +49,39 @@ describe('pipeline', function() {
 			.that.equal(2);
 	});
 
-	it('should return an error if a middleware throws', function() {
-		const payload = {
-			err: createErrors()
-		};
-
+	it('...or not', function() {
 		const middlewares = [
+			increment,
+			throwError,
+			increment
+		];
+
+		return expect(pipeline(middlewares, payload, false))
+			.to.eventually.have.property('number')
+			.that.equal(3);
+	});
+
+	it('should return an error if a middleware throws', function() {
+		const middlewares = [
+			throwError,
 			throwError
 		];
 
 		return expect(pipeline(middlewares, payload))
 			.to.eventually.satisfy(
 				({err}) => (err.count() === 1)
+			);
+	});
+
+	it('...or many', function() {
+		const middlewares = [
+			throwError,
+			throwError
+		];
+
+		return expect(pipeline(middlewares, payload, false))
+			.to.eventually.satisfy(
+				({err}) => (err.count() === 2)
 			);
 	});
 });

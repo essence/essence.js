@@ -5,15 +5,23 @@
  *	@param object payload Payload.
  *	@param object Updated payload.
  */
-export default async function pipeline(middlewares, payload) {
+export default async function pipeline(
+	middlewares,
+	payload,
+	interrupt = true
+) {
 	let p = {...payload};
 
-	try {
-		for (const middleware of middlewares) {
+	for (const middleware of middlewares) {
+		try {
 			p = await middleware(p);
+		} catch (e) {
+			p.err = p.err.withError(e);
+
+			if (interrupt) {
+				break;
+			}
 		}
-	} catch (e) {
-		p.err = p.err.withError(e);
 	}
 
 	return p;
