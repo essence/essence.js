@@ -1,7 +1,7 @@
 /**
  *
  */
-export default function fillUrl({req, res, err}) {
+export default function fillResponseUrl({req, res, err}) {
 	const filledRes =
 		(!res.isEmpty() && !res.has('url'))
 			? res.withProp('url', req.url())

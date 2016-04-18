@@ -11,8 +11,8 @@ import metaTagsExtractor from './extractors/metaTags';
 import {FORMAT_JSON, FORMAT_XML} from './extractors/oEmbedFormats';
 import oEmbedKnownExtractor from './extractors/oEmbedKnown';
 import oEmbedAutoExtractor from './extractors/oEmbedAuto';
-import mapperPresenter from './presenters/mapper';
-import fillUrl from './presenters/fillUrl';
+import mapResponseProps from './presenters/mapResponseProps';
+import fillResponseUrl from './presenters/fillResponseUrl';
 
 
 
@@ -72,7 +72,7 @@ const container = createContainer()
 		)
 	)
 	.withUnique('openGraphMapper', () =>
-		mapperPresenter({
+		mapResponseProps.bind(null, {
 			'og:url': 'url',
 			'og:type': 'type',
 			'og:title': 'title',
@@ -93,7 +93,7 @@ const container = createContainer()
 		)
 	)
 	.withUnique('twitterTagsMapper', () =>
-		mapperPresenter({
+		mapResponseProps.bind(null, {
 			'twitter:card': 'type',
 			'twitter:title': 'title',
 			'twitter:description': 'description',
@@ -132,7 +132,7 @@ const container = createContainer()
 		//		container.get('isYoutubeRequest'),
 		//		youtubePresenter()
 		//	),
-		fillUrl
+		fillResponseUrl
 	]))
 	.withUnique('extractor', () =>
 		curry(extract)(

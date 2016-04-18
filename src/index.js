@@ -21,8 +21,8 @@ export {default as oEmbedExtractor} from './extractors/oEmbed';
 export {default as oEmbedAutoExtractor} from './extractors/oEmbedAuto';
 export {default as oEmbedKnownExtractor} from './extractors/oEmbedKnown';
 export {default as metaTagsExtractor} from './extractors/metaTags';
-export {default as fillUrlPresenter} from './presenters/fillUrl';
-export {default as mapperPresenter} from './presenters/mapper';
+export {default as fillResponseUrl} from './presenters/fillResponseUrl';
+export {default as mapResponseProps} from './presenters/mapResponseProps';
 
 /**
  *	A default extractor.
