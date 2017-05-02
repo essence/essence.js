@@ -11,7 +11,7 @@ export {default as createRequest} from './createRequest';
 export {default as createResponse} from './createResponse';
 export {default as container} from './container';
 export {default as condition} from './condition';
-export {default as pipeline} from './pipeline';
+export {default as pipe} from './pipe';
 export {default as extract} from './extract';
 export {default as isResponseEmpty} from './conditions/isResponseEmpty';
 export {default as requestUrlMatchesRegex} from './conditions/requestUrlMatchesRegex';

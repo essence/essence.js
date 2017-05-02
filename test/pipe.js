@@ -1,6 +1,6 @@
 import chai, {expect} from 'chai';
 import chaiAsPromised from 'chai-as-promised';
-import {pipeline, createErrors} from '../src';
+import {pipe, createErrors} from '../src';
 
 chai.use(chaiAsPromised);
 
@@ -24,62 +24,62 @@ const payload = {
 
 
 
-describe('pipeline', function() {
+describe('pipe', function() {
 	it('should pass a payload through the middlewares', function() {
-		const middlewares = [
+		const reduce = pipe([
 			increment,
 			increment,
 			increment
-		];
-
-		return expect(pipeline(middlewares, payload))
+		]);
+		
+		return expect(reduce(payload))
 			.to.eventually.have.property('number')
 			.that.equal(4);
 	});
 
 	it('should interrupt the pipeline if a middleware throws', function() {
-		const middlewares = [
+		const reduce = pipe([
 			increment,
 			throwError,
 			increment
-		];
+		]);
 
-		return expect(pipeline(middlewares, payload))
+		return expect(reduce(payload))
 			.to.eventually.have.property('number')
 			.that.equal(2);
 	});
 
 	it('...or not', function() {
-		const middlewares = [
+		const reduce = pipe([
 			increment,
 			throwError,
 			increment
-		];
+		], false);
 
-		return expect(pipeline(middlewares, payload, false))
+		return expect(reduce(payload))
 			.to.eventually.have.property('number')
 			.that.equal(3);
 	});
 
 	it('should return an error if a middleware throws', function() {
-		const middlewares = [
+		const reduce = pipe([
 			throwError,
 			throwError
-		];
+		]);
 
-		return expect(pipeline(middlewares, payload))
+		return expect(reduce(payload))
 			.to.eventually.satisfy(
 				({err}) => (err.count() === 1)
 			);
 	});
 
 	it('...or many', function() {
-		const middlewares = [
+		const reduce = pipe([
 			throwError,
 			throwError
-		];
+		], false);
 
-		return expect(pipeline(middlewares, payload, false))
+		return expect(reduce(payload))
 			.to.eventually.satisfy(
 				({err}) => (err.count() === 2)
 			);

@@ -2,7 +2,7 @@ import axios from 'axios';
 import {memoize, property} from 'lodash';
 import createContainer from './createContainer';
 import extract from './extract';
-import pipeline from './pipeline';
+import pipe from './pipe';
 import condition from './condition';
 import isResponseEmpty from './conditions/isResponseEmpty';
 import requestUrlMatchesRegex from './conditions/requestUrlMatchesRegex';
@@ -119,7 +119,7 @@ const container = createContainer()
 		})
 	)
 
-	.withUnique('middlewares', () => ([
+	.withUnique('middlewares', () => pipe([
 		condition(
 			container.get('isYoutubeRequest'),
 			container.get('youtubePreparator')
@@ -134,14 +134,14 @@ const container = createContainer()
 		//	),
 		condition(
 			isResponseEmpty,
-			pipeline.bind(null, [
+			pipe([
 				container.get('openGraphExtractor'),
 				container.get('openGraphMapper')
 			])
 		),
 		condition(
 			isResponseEmpty,
-			pipeline.bind(null, [
+			pipe([
 				container.get('twitterTagsExtractor'),
 				container.get('twitterTagsMapper')
 			])
@@ -151,7 +151,7 @@ const container = createContainer()
 		//		youtubePresenter()
 		//	),
 		fillResponseUrl
-	]))
+	], false))
 
 	.withUnique('extractor', () =>
 		extract.bind(null, container.get('middlewares'))

@@ -1,23 +1,20 @@
 import createRequest from './createRequest';
 import createResponse from './createResponse';
 import createErrors from './createErrors';
-import pipeline from './pipeline';
 
 
 
 /**
- *	Extracts info from the given URL using middlewares.
+ *	Extracts info from the given URL using a reducer.
  *
- *	@param array middlewares Middlewares.
+ *	@param function reduce Reducer function.
  *	@param string url URL.
  *	@return object Payload.
  */
-export default async function extract(middlewares, url) {
-	const payload = {
+export default async function extract(reduce, url) {
+	return reduce({
 		req: createRequest(url),
 		res: createResponse(),
 		err: createErrors()
-	};
-
-	return pipeline(middlewares, payload, false);
+	});
 }
