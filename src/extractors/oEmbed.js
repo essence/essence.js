@@ -1,8 +1,15 @@
 import xml2js from 'xml2js';
 import {isString} from 'lodash';
-import {FORMAT_JSON, FORMAT_XML} from './oEmbedFormats';
 
 
+
+/**
+ * 
+ */
+export const Formats = {
+	json: 'json',
+	xml: 'xml'
+};
 
 /**
  *
@@ -28,12 +35,12 @@ async function parseXml(xml) {
  */
 async function parse(body, format) {
 	switch (format) {
-		case FORMAT_JSON:
+		case Formats.json:
 			return isString(body)
 				? JSON.parse(body)
 				: body
 
-		case FORMAT_XML:
+		case Formats.xml:
 			return await parseXml(body);
 
 		default:
@@ -49,7 +56,7 @@ async function parse(body, format) {
 export default async function extract(
 	getBody,
 	endpoint,
-	format = FORMAT_JSON,
+	format = Formats.json,
 	{req, res, err}
 ) {
 	const url = endpoint.replace(/:url/i, req.url());

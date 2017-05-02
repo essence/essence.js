@@ -8,7 +8,7 @@ import isResponseEmpty from './conditions/isResponseEmpty';
 import requestUrlMatchesRegex from './conditions/requestUrlMatchesRegex';
 import refactorRequestUrl from './preparators/refactorRequestUrl';
 import metaTagsExtractor from './extractors/metaTags';
-import {FORMAT_JSON, FORMAT_XML} from './extractors/oEmbedFormats';
+import {Formats} from './extractors/oEmbed';
 import oEmbedKnownExtractor from './extractors/oEmbedKnown';
 import oEmbedAutoExtractor from './extractors/oEmbedAuto';
 import mapResponseProps from './presenters/mapResponseProps';
@@ -57,8 +57,8 @@ const container = createContainer()
 	.withUnique('oEmbedServices', () => ({
 		'youtube': {
 			filter: /youtube\.com|youtu\.be/i,
-			endpoint: 'http://www.youtube.com/oembed?format=xml&url=:url',
-			format: FORMAT_XML
+			endpoint: 'http://www.youtube.com/oembed?format=json&url=:url',
+			format: Formats.json
 		}
 	}))
 
