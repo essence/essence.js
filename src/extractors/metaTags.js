@@ -37,14 +37,13 @@ const extractProperties = (pattern, html) => {
 export default async function extract(
 	getBody,
 	pattern,
-	{req, res, err}
+	{req, res}
 ) {
 	const html = await getBody(req.url());
 	const props = extractProperties(pattern, html);
 
 	return {
 		req,
-		res: res.withProps(props),
-		err
+		res: res.withProps(props)
 	};
 }
