@@ -1,6 +1,5 @@
 import createRequest from './createRequest';
 import createResponse from './createResponse';
-import createErrors from './createErrors';
 
 
 
@@ -14,7 +13,6 @@ import createErrors from './createErrors';
 export default async function extract(reduce, url) {
 	return reduce({
 		req: createRequest(url),
-		res: createResponse(),
-		err: createErrors()
+		res: createResponse()
 	});
 }

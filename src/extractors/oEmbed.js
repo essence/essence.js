@@ -4,7 +4,7 @@ import {isString} from 'lodash';
 
 
 /**
- * 
+ *
  */
 export const Formats = {
 	json: 'json',
@@ -57,7 +57,7 @@ export default async function extract(
 	getBody,
 	endpoint,
 	format = Formats.json,
-	{req, res, err}
+	{req, res}
 ) {
 	const url = endpoint.replace(/:url/i, req.url());
 	const body = await getBody(url);
@@ -65,7 +65,6 @@ export default async function extract(
 
 	return {
 		req,
-		res: res.withProps(props),
-		err
+		res: res.withProps(props)
 	};
 }

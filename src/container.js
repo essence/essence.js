@@ -21,6 +21,13 @@ import fillResponseUrl from './presenters/fillResponseUrl';
  */
 const container = createContainer()
 
+	.withUnique('handleError', () =>
+		(e) => {
+			console.error(e);
+			return true;
+		}
+	)
+
 	.withUnique('getHeaders', () => {
 		const head = memoize(axios.head);
 
@@ -151,7 +158,7 @@ const container = createContainer()
 		//		youtubePresenter()
 		//	),
 		fillResponseUrl
-	], false))
+	], container.get('handleError')))
 
 	.withUnique('extractor', () =>
 		extract.bind(null, container.get('middlewares'))

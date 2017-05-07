@@ -6,7 +6,6 @@ import container from './container';
  *	Reexports.
  */
 export {default as createContainer} from './createContainer';
-export {default as createErrors} from './createErrors';
 export {default as createRequest} from './createRequest';
 export {default as createResponse} from './createResponse';
 export {default as container} from './container';
