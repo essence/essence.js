@@ -15,9 +15,8 @@ export default function createCondition(predicate, middleware) {
 	 *	@param object payload Payload.
 	 *	@return object Updated payload.
 	 */
-	return async function condition(payload) {
-		return predicate(payload)
+	return async (payload) =>
+		predicate(payload)
 			? await middleware(payload)
 			: payload;
-	};
 }

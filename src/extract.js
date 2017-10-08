@@ -11,8 +11,10 @@ import createResponse from './createResponse';
  *	@return object Payload.
  */
 export default async function extract(reduce, url) {
-	return reduce({
+	const {res} = await reduce({
 		req: createRequest(url),
 		res: createResponse()
 	});
+
+	return res;
 }

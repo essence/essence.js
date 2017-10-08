@@ -1,15 +1,8 @@
 import xml2js from 'xml2js';
 import {isString} from 'lodash';
+import Formats from './oEmbed/OEmbedFormats';
 
 
-
-/**
- *
- */
-export const Formats = {
-	json: 'json',
-	xml: 'xml'
-};
 
 /**
  *
@@ -53,10 +46,9 @@ async function parse(body, format) {
 /**
  *
  */
-export default async function extract(
+export default async function extractOEmbedFromService(
 	getBody,
-	endpoint,
-	format = Formats.json,
+	{endpoint, format},
 	{req, res}
 ) {
 	const url = endpoint.replace(/:url/i, req.url());

@@ -6,6 +6,7 @@
   "author": "Félix Girault <felix.girault@gmail.com>",
   "license": "MIT",
   "main": "lib/index.js",
+  "module": "src/index.js",
   "bin": "bin/essence",
   "scripts": {
     "start": "npm run test-watch",
@@ -39,6 +40,7 @@
     "eslint-config-vtech": "^0.1.1",
     "eslint-loader": "^1.3.0",
     "eslint-plugin-babel": "^3.2.0",
-    "mocha": "^2.4.5"
+    "mocha": "^2.4.5",
+    "sinon": "^2.2.0"
   }
 }

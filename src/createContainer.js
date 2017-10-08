@@ -24,7 +24,7 @@ export default function createContainer(factories = Map()) {
 			);
 		}
 
-		return factory();
+		return factory(get);
 	};
 
 	/**

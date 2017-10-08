@@ -15,14 +15,18 @@ export {default as extract} from './extract';
 export {default as isResponseEmpty} from './conditions/isResponseEmpty';
 export {default as requestUrlMatchesRegex} from './conditions/requestUrlMatchesRegex';
 export {default as refactorRequestUrl} from './preparators/refactorRequestUrl';
-export {default as oEmbedExtractor} from './extractors/oEmbed';
-export {default as oEmbedAutoExtractor} from './extractors/oEmbedAuto';
-export {default as oEmbedKnownExtractor} from './extractors/oEmbedKnown';
-export {default as metaTagsExtractor} from './extractors/metaTags';
+export {default as extractOEmbed} from './extractors/extractOEmbed';
+export {default as extractOEmbedFromService} from './extractors/extractOEmbedFromService';
+export {default as OEmbedFormats} from './extractors/oEmbed/OEmbedFormats';
+export {default as createService} from './extractors/oEmbed/createService';
+export {default as findServiceFromHtml} from './extractors/oEmbed/findServiceFromHtml';
+export {default as findServiceFromList} from './extractors/oEmbed/findServiceFromList';
+export {default as findServiceFromUrl} from './extractors/oEmbed/findServiceFromUrl';
+export {default as extractMetaTags} from './extractors/extractMetaTags';
 export {default as fillResponseUrl} from './presenters/fillResponseUrl';
 export {default as mapResponseProps} from './presenters/mapResponseProps';
 
 /**
  *	A default extractor.
  */
-export default container.get('extractor');
+export default container.get('extract');

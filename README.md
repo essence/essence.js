@@ -15,9 +15,7 @@ npm install essence
 ```js
 import extract from 'essence';
 
-extract('http://example.com')
-  .then(({res, err}) => {
-    // res contains the extracted info
-    // err contains all the encountered errors
-  });
+const response = await extract('http://example.com');
+
+console.log(response.toJson());
 ```

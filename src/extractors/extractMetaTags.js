@@ -34,7 +34,7 @@ const extractProperties = (pattern, html) => {
 /**
  *
  */
-export default async function extract(
+export default async function extractMetaTags(
 	getBody,
 	pattern,
 	{req, res}

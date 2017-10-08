@@ -1,6 +1,6 @@
 import chai, {expect} from 'chai';
 import chaiAsPromised from 'chai-as-promised';
-import {constant} from 'lodash';
+import {stubTrue} from 'lodash';
 import {pipe, createErrors} from '../src';
 
 chai.use(chaiAsPromised);
@@ -41,12 +41,11 @@ describe('pipe', function() {
 	});
 
 	it('...or not', function() {
-		const handleError = constant(true);
 		const reduce = pipe([
 			increment,
 			throwError,
 			increment
-		], handleError);
+		], stubTrue);
 
 		return expect(reduce(1))
 			.to.eventually.equal(3);

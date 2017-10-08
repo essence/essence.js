@@ -15,12 +15,9 @@ const mapProp = (res, to, from) =>
 /**
  *
  */
-export default function mapResponseProps(
-	mapping,
-	{res, ...payload}
-) {
+export default function mapResponseProps(mapping, {req, res}) {
 	return {
-		...payload,
+		req,
 		res: reduce(mapping, mapProp, res)
 	};
 }
