@@ -57,7 +57,7 @@ export default createContainer()
 		partial(findServiceFromList, get('oEmbedServices'))
 	)
 	.withUnique('findServiceFromUrl', (get) =>
-		partial(findServiceFromList, get('getBody'))
+		partial(findServiceFromUrl, get('getBody'))
 	)
 	.withUnique('extractOEmbedFromService', (get) =>
 		partial(extractOEmbedFromService, get('getBody'))
