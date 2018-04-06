@@ -1,24 +1,20 @@
-import chai, {expect} from 'chai';
-import chaiAsPromised from 'chai-as-promised';
-import {extract, pipe} from '../src';
+import {use, expect} from 'chai';
+import * as chaiAsPromised from 'chai-as-promised';
+import {extract} from '../src';
 
-chai.use(chaiAsPromised);
+use(chaiAsPromised);
 
 
 
 describe('extract', function() {
 	it('should extract an URL', function() {
 		const url = 'http://example.com';
-		const fillResponseUrl = async ({req, res}) => ({
-			req,
-			res: res.withProp('url', req.url())
-		});
+		const fillResponseUrl = async (payload) =>
+			payload.withResponse((res) =>
+				res.withProp('url', payload.req.url)
+			);
 
-		const reduce = pipe([
-			fillResponseUrl
-		], false);
-
-		return expect(extract(reduce, url))
+		return expect(extract(fillResponseUrl, url))
 			.to.eventually.satisfy((res) =>
 				(res.get('url') === url)
 			);
