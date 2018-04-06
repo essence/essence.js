@@ -10,12 +10,14 @@
   "bin": "bin/essence",
   "scripts": {
     "start": "npm run test-watch",
-    "build": "babel src --out-dir lib",
-    "test": "mocha --recursive --compilers js:babel-register",
-    "test-watch": "mocha --watch --recursive --compilers js:babel-register",
+    "try": "node ./bin/essence",
+    "build": "tsc",
+    "test": "cross-env TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"} mocha --recursive --compilers ts:ts-node/register",
+    "test-watch": "npm run test -- --watch",
     "prepublish": "npm run test && npm run build"
   },
   "dependencies": {
+    "@types/chai-as-promised": "^7.1.0",
     "axios": "^0.9.1",
     "cheerio": "^0.20.0",
     "commander": "^2.9.0",
@@ -25,22 +27,15 @@
     "xml2js": "^0.4.16"
   },
   "devDependencies": {
-    "babel": "^6.5.2",
-    "babel-cli": "^6.7.5",
-    "babel-core": "^6.7.6",
-    "babel-eslint": "^6.0.2",
-    "babel-plugin-transform-runtime": "^6.7.5",
-    "babel-preset-es2015": "^6.6.0",
-    "babel-preset-stage-2": "^6.5.0",
-    "babel-register": "^6.7.2",
-    "babel-runtime": "^6.6.1",
+    "@types/chai": "^4.0.4",
+    "@types/mocha": "^2.2.43",
     "chai": "^3.5.0",
     "chai-as-promised": "^5.3.0",
-    "eslint": "^2.8.0",
-    "eslint-config-vtech": "^0.1.1",
-    "eslint-loader": "^1.3.0",
-    "eslint-plugin-babel": "^3.2.0",
+    "cross-env": "^5.0.5",
     "mocha": "^2.4.5",
-    "sinon": "^2.2.0"
+    "sinon": "^2.2.0",
+    "ts-node": "^3.3.0",
+    "tslint-immutable": "^4.4.0",
+    "typescript": "^2.5.3"
   }
 }
